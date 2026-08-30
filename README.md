@@ -1,4 +1,4 @@
-- [Extensions download Website](https://github.com/am-abdulmueed/pluginstream)
+- [Extensions download Website](https://pluginstream.pages.dev/)
 <p align="center">
   <img src="https://pluginstream.pages.dev/assets/pluginstream.png" alt="PluginStream Logo" width="140">
 </p>
