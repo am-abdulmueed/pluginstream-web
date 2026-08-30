@@ -1629,6 +1629,295 @@
     </div>
   </nav>
 
+  <style>
+    @keyframes banner-blob-float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(30px, -20px) scale(1.1); }
+      66% { transform: translate(-20px, 15px) scale(0.95); }
+    }
+
+    @keyframes banner-shimmer {
+      0% { transform: translateX(-150%) skewX(-20deg); }
+      100% { transform: translateX(250%) skewX(-20deg); }
+    }
+
+    @keyframes banner-pulse-glow {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; }
+    }
+
+    .top-banner {
+      position: relative;
+      width: 100%;
+      background: linear-gradient(135deg, rgba(10, 26, 26, 0.85) 0%, rgba(26, 47, 47, 0.75) 50%, rgba(10, 26, 26, 0.85) 100%);
+      backdrop-filter: blur(20px) saturate(1.4);
+      -webkit-backdrop-filter: blur(20px) saturate(1.4);
+      overflow: hidden;
+      z-index: 10;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .top-banner-bg-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      pointer-events: none;
+      will-change: transform;
+    }
+
+    .top-banner-bg-blob-1 {
+      top: -80px;
+      right: 5%;
+      width: 280px;
+      height: 280px;
+      background: radial-gradient(circle, rgba(232, 185, 74, 0.45) 0%, rgba(232, 185, 74, 0.1) 50%, transparent 70%);
+      animation: banner-blob-float 12s ease-in-out infinite;
+    }
+
+    .top-banner-bg-blob-2 {
+      bottom: -70px;
+      left: 10%;
+      width: 240px;
+      height: 240px;
+      background: radial-gradient(circle, rgba(184, 164, 237, 0.4) 0%, rgba(184, 164, 237, 0.08) 50%, transparent 70%);
+      animation: banner-blob-float 15s ease-in-out infinite reverse;
+      animation-delay: -3s;
+    }
+
+    .top-banner-bg-blob-3 {
+      top: 50%;
+      left: 45%;
+      transform: translate(-50%, -50%);
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(255, 77, 139, 0.22) 0%, transparent 70%);
+      animation: banner-pulse-glow 4s ease-in-out infinite;
+    }
+
+    .top-banner-inner {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 20px 32px;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .top-banner-left {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      min-width: 0;
+    }
+
+    .top-banner-icon {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      min-width: 48px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--accent-ochre) 0%, #ffd36e 50%, #d4a038 100%);
+      box-shadow:
+        0 8px 24px rgba(232, 185, 74, 0.45),
+        0 2px 8px rgba(232, 185, 74, 0.3),
+        inset 0 1px 1px rgba(255, 255, 255, 0.4);
+      font-size: 24px;
+      overflow: hidden;
+    }
+
+    .top-banner-icon::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.35) 0%, transparent 50%);
+      border-radius: 14px;
+      pointer-events: none;
+    }
+
+    .top-banner-text-group {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      min-width: 0;
+    }
+
+    .top-banner-title {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -0.4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      background: linear-gradient(135deg, #ffffff 0%, #ffe9b8 50%, var(--accent-ochre) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+    }
+
+    .top-banner-subtitle {
+      font-size: 12.5px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.6);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      letter-spacing: 0.2px;
+    }
+
+    .top-banner-subtitle span {
+      color: var(--accent-ochre);
+      font-weight: 600;
+    }
+
+    .top-banner-cta {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      height: 44px;
+      padding: 0 24px;
+      background: linear-gradient(135deg, var(--accent-ochre) 0%, #ffcf5c 50%, #d4a038 100%);
+      color: #0a1a1a;
+      font-size: 13.5px;
+      font-weight: 800;
+      letter-spacing: 0.2px;
+      border-radius: 999px;
+      text-decoration: none;
+      white-space: nowrap;
+      overflow: hidden;
+      box-shadow:
+        0 8px 28px rgba(232, 185, 74, 0.55),
+        0 2px 8px rgba(232, 185, 74, 0.35),
+        inset 0 1px 1px rgba(255, 255, 255, 0.45),
+        inset 0 -1px 1px rgba(0, 0, 0, 0.1);
+      transition: transform 0.22s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.22s ease;
+    }
+
+    .top-banner-cta::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 40%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+      animation: banner-shimmer 3.5s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .top-banner-cta:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow:
+        0 12px 36px rgba(232, 185, 74, 0.7),
+        0 4px 12px rgba(232, 185, 74, 0.45),
+        inset 0 1px 1px rgba(255, 255, 255, 0.5),
+        inset 0 -1px 1px rgba(0, 0, 0, 0.1);
+    }
+
+    .top-banner-cta:active {
+      transform: translateY(0) scale(0.98);
+    }
+
+    .top-banner-cta svg {
+      width: 17px;
+      height: 17px;
+      transition: transform 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .top-banner-cta:hover svg {
+      transform: translateX(4px);
+    }
+
+    @media (max-width: 768px) {
+      .top-banner-inner {
+        padding: 16px 16px;
+        gap: 12px;
+      }
+
+      .top-banner-bg-blob-1 { width: 200px; height: 200px; }
+      .top-banner-bg-blob-2 { width: 180px; height: 180px; }
+      .top-banner-bg-blob-3 { display: none; }
+
+      .top-banner-icon {
+        width: 40px;
+        height: 40px;
+        min-width: 40px;
+        font-size: 18px;
+        border-radius: 12px;
+      }
+
+      .top-banner-title {
+        font-size: 14px;
+      }
+
+      .top-banner-subtitle {
+        display: none;
+      }
+
+      .top-banner-cta {
+        height: 38px;
+        padding: 0 16px;
+        font-size: 12.5px;
+      }
+
+      .top-banner-cta svg {
+        width: 15px;
+        height: 15px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .top-banner-left {
+        gap: 10px;
+      }
+
+      .top-banner-text-group {
+        display: none;
+      }
+
+      .top-banner-cta {
+        flex: 1;
+        justify-content: center;
+      }
+    }
+  </style>
+
+  <section class="top-banner">
+    <div class="top-banner-bg-blob top-banner-bg-blob-1"></div>
+    <div class="top-banner-bg-blob top-banner-bg-blob-2"></div>
+    <div class="top-banner-bg-blob top-banner-bg-blob-3"></div>
+
+    <div class="top-banner-inner">
+      <div class="top-banner-left">
+        <div class="top-banner-icon">🧩</div>
+        <div class="top-banner-text-group">
+          <span class="top-banner-title">DOWNLOAD EXTENSIONS</span>
+          <span class="top-banner-subtitle"><span>100+</span> free OTT plugins &middot; One-click install</span>
+        </div>
+      </div>
+      <a href="extensions.html" class="top-banner-cta ripple">
+        Get Extensions
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </a>
+    </div>
+  </section>
+
   <header class="hero">
     <!-- Decorative layers -->
     <div class="hero-orb hero-orb-1"></div>
