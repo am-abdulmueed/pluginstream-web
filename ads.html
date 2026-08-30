@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redirecting to Partner Offer</title>
+  <meta name="description" content="Redirecting you to our support link.">
+
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Unbounded:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="icon" href="./assets/pluginstream.png">
+
+  <style>
+    :root {
+      --canvas: #fffaf0;
+      --surface-soft: #faf5e8;
+      --surface-card: #ffffff;
+      --surface-dark: #0a1a1a;
+      --ink: #0a0a0a;
+      --body: #3a3a3a;
+      --muted: #6a6a6a;
+      --hairline: #eae4d8;
+
+      --accent-violet: #b8a4ed;
+      --accent-pink: #ff4d8b;
+      --accent-sky: #a7c7e7;
+      --accent-peach: #ffb084;
+      --accent-ochre: #e8b94a;
+      --accent-mint: #a4d4c5;
+
+      --space-xxs: 4px;
+      --space-xs: 8px;
+      --space-sm: 12px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 32px;
+      --space-xxl: 48px;
+
+      --radius-md: 14px;
+      --radius-xl: 24px;
+      --radius-pill: 9999px;
+      
+      --shadow-sm: 0 2px 8px rgba(10, 26, 26, 0.04);
+      --shadow-md: 0 12px 34px rgba(10, 26, 26, 0.06);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--canvas);
+      color: var(--body);
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: radial-gradient(circle at 50% 50%, rgba(184, 164, 237, 0.18) 0%, rgba(255, 77, 139, 0.06) 25%, transparent 50%);
+      z-index: -1;
+      animation: rotate-gradient 25s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes rotate-gradient { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-8px); } 100% { transform: translateY(0px); } }
+    @keyframes pulse-glow { 0% { box-shadow: 0 0 0 0 rgba(184, 164, 237, 0.5); } 70% { box-shadow: 0 0 0 15px rgba(184, 164, 237, 0); } 100% { box-shadow: 0 0 0 0 rgba(184, 164, 237, 0); } }
+
+    h1, h2, h3 { font-family: 'Unbounded', sans-serif; color: var(--ink); letter-spacing: -0.03em; }
+    a { text-decoration: none; color: inherit; }
+
+    .page-wrapper {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-xl) var(--space-md);
+    }
+
+    .page {
+      max-width: 520px;
+      width: 100%;
+      display: grid;
+      gap: var(--space-lg);
+    }
+
+    /* ── RIPPLE ── */
+    .ripple { position: relative; overflow: hidden; }
+    .ripple-span {
+      position: absolute;
+      border-radius: 50%;
+      transform: scale(0);
+      animation: ripple 0.6s linear;
+      background-color: rgba(255, 255, 255, 0.3);
+      pointer-events: none;
+    }
+    .btn-secondary .ripple-span { background-color: rgba(0, 0, 0, 0.08); }
+    @keyframes ripple { to { transform: scale(4); opacity: 0; } }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      height: 54px;
+      padding: 0 32px;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      border: none;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(10, 26, 26, 0.15); }
+    .btn:active { transform: translateY(0); }
+    .btn-primary { background-color: var(--surface-dark); color: #fff; }
+    .btn-secondary { background-color: var(--surface-soft); color: var(--ink); border: 1px solid var(--hairline); }
+    .btn-secondary:hover { background-color: #f3ede0; }
+    .btn[disabled] { opacity: 0.4; cursor: not-allowed; pointer-events: none; transform: none !important; box-shadow: none !important; }
+
+    /* ── SPONSOR STRIP ── */
+    .sponsor-strip {
+      background: linear-gradient(135deg, var(--accent-violet) 0%, #c4b3f2 100%);
+      border-radius: var(--radius-xl);
+      padding: var(--space-md) var(--space-lg);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .sponsor-strip p { font-size: 13px; font-weight: 500; color: rgba(10,10,10,0.8); line-height: 1.5; }
+    .sponsor-strip .btn-primary { height: 38px; padding: 0 18px; font-size: 13px; flex-shrink: 0; }
+
+    /* ── MAIN PANEL ── */
+    .panel {
+      background-color: var(--surface-card);
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-xl);
+      padding: var(--space-xl);
+      text-align: center;
+      box-shadow: var(--shadow-md);
+    }
+
+    .hero-logo {
+      width: 80px; height: 80px;
+      margin: 0 auto var(--space-md);
+      border-radius: 24px;
+      box-shadow: 0 16px 32px rgba(10,26,26,0.08);
+      animation: float 5s ease-in-out infinite;
+      display: block;
+    }
+
+    .hero-badge {
+      display: inline-flex; align-items: center;
+      padding: var(--space-xxs) var(--space-md);
+      border-radius: var(--radius-pill);
+      background-color: var(--surface-soft);
+      border: 1px solid var(--hairline);
+      font-size: 11px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: var(--space-lg);
+    }
+
+    .panel h1 { font-size: 26px; font-weight: 600; margin-bottom: var(--space-xs); color: var(--ink); }
+    .panel p { color: var(--muted); font-size: 14px; line-height: 1.6; max-width: 400px; margin: 0 auto var(--space-md); }
+
+    /* Modern Progress Ring Clock */
+    .timer {
+      width: 120px; height: 120px;
+      margin: var(--space-md) auto var(--space-xl);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: var(--surface-soft);
+      border: 4px solid var(--accent-violet);
+      position: relative;
+      animation: pulse-glow 2s infinite;
+    }
+    .timer strong {
+      display: block;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 2.6rem;
+      font-weight: 800;
+      line-height: 1;
+      color: var(--ink);
+    }
+    .timer span {
+      display: block;
+      color: var(--muted);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 700;
+      margin-top: 2px;
+    }
+
+    .actions {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+    .actions .btn { width: 100%; }
+
+    .status-text {
+      margin-top: var(--space-lg);
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+   /* ── AD CARDS ── */
+    .ad-card {
+      background-color: var(--surface-card);
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-xl);
+      padding: var(--space-lg);
+      box-shadow: var(--shadow-sm);
+      width: 100%;
+      min-width: 0;         /* Card ko rigid hone se rokta hai */
+      overflow: hidden;      /* Koi bhi cheez card se bahar nahi nikal sakti */
+      box-sizing: border-box;
+    }
+    .ad-card h3 {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: var(--space-sm);
+    }
+    .ad-card .ads-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: var(--space-sm);
+    }
+    .ad-slot {
+      min-height: 80px;
+      width: 100%;
+      max-width: 100%;       /* Max width wrapper se constraint rahegi */
+      border-radius: var(--radius-md);
+      border: 1px dashed rgba(10,26,26,0.15);
+      background-color: var(--canvas);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .native-ad-frame {
+      width: 100%;
+      max-height: 240px;
+      overflow-y: auto;
+      overflow-x: hidden;    /* Horizontal scroll ko kill karne k liye */
+      border-radius: var(--radius-md);
+      background-color: var(--canvas);
+      border: 1px solid var(--hairline);
+      scrollbar-width: thin;
+    }
+    .native-ad-frame img { max-width: 100%; height: auto; display: block; }
+
+    /* Force external script elements and dynamic iframes to stay inside */
+    .ad-slot iframe, 
+    .ad-slot ins, 
+    .ad-slot div,
+    .native-ad-frame iframe,
+    .native-ad-frame div {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+
+    @media (max-width: 480px) {
+      .panel { padding: var(--space-lg) var(--space-md); }
+      .sponsor-strip { flex-direction: column; text-align: center; padding: var(--space-md); }
+      .sponsor-strip .btn { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <main class="page">
+
+      <!-- SPONSORED STRIP -->
+      <section class="sponsor-strip" aria-label="Sponsored message">
+        <p>Partner offer is active during the 10-second redirect window.</p>
+        <a class="btn btn-primary ripple"
+          href="https://www.effectivecpmnetwork.com/q9fcq65yfr?key=08d2509c203cbea44e79039ef1bab143"
+          target="_blank" rel="noopener noreferrer sponsored nofollow">Open Offer</a>
+      </section>
+
+      <!-- MAIN PANEL -->
+      <section class="panel">
+        <img src="./assets/pluginstream.png" alt="PluginStream" class="hero-logo">
+        <div class="hero-badge">Support Us</div>
+        <h1>Loading Partner Offer</h1>
+        <p id="redirect-copy">You are being redirected to our sponsor link to support our work. If it doesn't trigger, use the button below.</p>
+
+        <div class="timer" aria-live="polite">
+          <div>
+            <strong id="countdown">10</strong>
+            <span>seconds</span>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button id="open-app" class="btn btn-primary ripple" type="button" disabled>Go to Offer</button>
+          <a class="btn btn-secondary ripple" href="index.html">Back to site</a>
+        </div>
+
+        <p class="status-text" id="status-text">Please wait, checking secure connection...</p>
+      </section>
+
+      <!-- AD: BANNER -->
+      <section class="ad-card" aria-label="Sponsored banner">
+        <div class="ads-label">Sponsored Advertising</div>
+        <div class="ad-slot banner-slot">
+          <script>
+            atOptions = {
+              'key': '6a9374ce5ba7bf38f6bc7d29a48035bd',
+              'format': 'iframe',
+              'height': 50,
+              'width': 320,
+              'params': {}
+            };
+          </script>
+          <script src="https://www.highperformanceformat.com/6a9374ce5ba7bf38f6bc7d29a48035bd/invoke.js"></script>
+        </div>
+      </section>
+
+      <!-- AD: NATIVE -->
+      <section class="ad-card" aria-label="Recommended for you">
+        <h3>Recommended Content</h3>
+        <div class="native-ad-frame">
+          <div id="container-4a575ee99f3cffbac7552b0593539196"></div>
+        </div>
+        <script async="async" data-cfasync="false" src="https://pl29725289.effectivecpmnetwork.com/4a575ee99f3cffbac7552b0593539196/invoke.js"></script>
+      </section>
+
+    </main>
+  </div>
+
+  <script>
+    // ── Ripple effect ──
+    function createRipple(event) {
+      const button = event.currentTarget;
+      const circle = document.createElement("span");
+      const diameter = Math.max(button.clientWidth, button.clientHeight);
+      const radius = diameter / 2;
+      const rect = button.getBoundingClientRect();
+      let x, y;
+      if (event.touches && event.touches.length > 0) {
+        x = event.touches[0].clientX - rect.left;
+        y = event.touches[0].clientY - rect.top;
+      } else {
+        x = event.clientX - rect.left;
+        y = event.clientY - rect.top;
+      }
+      circle.style.width = circle.style.height = `${diameter}px`;
+      circle.style.left = `${x - radius}px`;
+      circle.style.top = `${y - radius}px`;
+      circle.classList.add("ripple-span");
+      const existing = button.querySelector('.ripple-span');
+      if (existing) existing.remove();
+      button.appendChild(circle);
+      setTimeout(() => circle.remove(), 600);
+    }
+    document.querySelectorAll('.btn.ripple').forEach(btn => {
+      btn.addEventListener('mousedown', createRipple);
+      btn.addEventListener('touchstart', createRipple, { passive: true });
+    });
+
+    // ── Redirect logic ──
+    window.addEventListener('DOMContentLoaded', function () {
+      const AD_URL = 'https://omg10.com/4/11143190';
+      const countdownEl = document.getElementById('countdown');
+      const openButton = document.getElementById('open-app');
+      const statusText = document.getElementById('status-text');
+      const timerCircle = document.querySelector('.timer');
+
+      let seconds = 10;
+      countdownEl.textContent = String(seconds);
+      statusText.textContent = 'Button will enable in ' + seconds + ' seconds.';
+
+      function openAdLink() {
+        window.location.href = AD_URL;
+      }
+
+      const timer = setInterval(function () {
+        seconds -= 1;
+        countdownEl.textContent = String(Math.max(seconds, 0));
+
+        if (seconds > 0) {
+          statusText.textContent = 'Button will enable in ' + seconds + ' seconds.';
+        } else {
+          clearInterval(timer);
+          openButton.disabled = false;
+          timerCircle.style.borderColor = 'var(--accent-mint)'; 
+          statusText.textContent = 'Redirecting safely...';
+          openAdLink();
+        }
+      }, 1000);
+
+      openButton.addEventListener('click', openAdLink);
+    });
+  </script>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-analytics.js";
+    const firebaseConfig = {
+      apiKey: "AIzaSyCuTunuW_XuQ_bcQdqwNElEfKZlHP8WdSc",
+      authDomain: "pluginstream-94ff5.firebaseapp.com",
+      projectId: "pluginstream-94ff5",
+      storageBucket: "pluginstream-94ff5.firebasestorage.app",
+      messagingSenderId: "525209317723",
+      appId: "1:525209317723:web:02102e4da04f0c05bcea7e",
+      measurementId: "G-2HWE46P8EY"
+    };
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+  </script>
+  <!-- Lazy Load Ads -->
+  <script>
+    let adsLoaded = false;
+    
+    // Function to load all ads
+    function loadAds() {
+      if (adsLoaded) return;
+      adsLoaded = true;
+      
+      // Load push notification ad
+      const pushScript = document.createElement('script');
+      pushScript.src = 'https://5gvci.com/act/files/tag.min.js?z=11143232';
+      pushScript.setAttribute('data-cfasync', 'false');
+      pushScript.async = true;
+      document.body.appendChild(pushScript);
+      
+      // Load popunder ad after delay
+      setTimeout(() => {
+        const popunderScript = document.createElement('script');
+        popunderScript.innerHTML = "(function(s){s.dataset.zone='11143227',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))";
+        document.body.appendChild(popunderScript);
+      }, 2000);
+      
+      // Load in-page push after delay
+      setTimeout(() => {
+        const inPageScript = document.createElement('script');
+        inPageScript.innerHTML = "(function(s){s.dataset.zone='11143238',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))";
+        document.body.appendChild(inPageScript);
+      }, 3000);
+      
+      // Load vignette & app banner after delay
+      setTimeout(() => {
+        const vignetteScript = document.createElement('script');
+        vignetteScript.innerHTML = "(function(s){s.dataset.zone='11143239',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))";
+        document.body.appendChild(vignetteScript);
+      }, 4000);
+      
+      // Load ad slots if they exist
+      loadAdSlots();
+    }
+    
+    function loadAdSlots() {
+      // Ad slot 1
+      const adSlot1 = document.getElementById('ad-slot-1');
+      if (adSlot1) {
+        const atOptions1 = document.createElement('script');
+        atOptions1.innerHTML = "atOptions = { 'key' : '6a9374ce5ba7bf38f6bc7d29a48035bd', 'format' : 'iframe', 'height' : 50, 'width' : 320, 'params' : {} };";
+        adSlot1.appendChild(atOptions1);
+        
+        const invokeScript1 = document.createElement('script');
+        invokeScript1.src = 'https://www.highperformanceformat.com/6a9374ce5ba7bf38f6bc7d29a48035bd/invoke.js';
+        invokeScript1.async = true;
+        adSlot1.appendChild(invokeScript1);
+      }
+      
+      // Ad slot 2
+      const adSlot2 = document.getElementById('ad-slot-2');
+      if (adSlot2) {
+        const atOptions2 = document.createElement('script');
+        atOptions2.innerHTML = "atOptions = { 'key' : '6a9374ce5ba7bf38f6bc7d29a48035bd', 'format' : 'iframe', 'height' : 50, 'width' : 320, 'params' : {} };";
+        adSlot2.appendChild(atOptions2);
+        
+        const invokeScript2 = document.createElement('script');
+        invokeScript2.src = 'https://www.highperformanceformat.com/6a9374ce5ba7bf38f6bc7d29a48035bd/invoke.js';
+        invokeScript2.async = true;
+        adSlot2.appendChild(invokeScript2);
+      }
+    }
+    
+    // Intersection Observer for lazy loading ads when they come into view
+    document.addEventListener('DOMContentLoaded', () => {
+      const adsSection = document.getElementById('ads-section');
+      
+      if (adsSection && 'IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              loadAds();
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.1 });
+        
+        observer.observe(adsSection);
+      } else {
+        // Fallback for older browsers - load ads after page is fully loaded
+        window.addEventListener('load', loadAds);
+      }
+      
+      // Also load ads after a timeout just in case
+      setTimeout(loadAds, 5000);
+    });
+  </script></body>
+</html>

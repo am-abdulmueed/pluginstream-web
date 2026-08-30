@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PluginStream - Plugins Repository | CloudStream Extensions</title>
+    <meta name="description" content="Explore and install the best PluginStream extensions and plugins. One-tap repository install for CloudStream forks, featuring Netflix, Prime, and more." />
+    <meta name="keywords" content="pluginstream, plugins repo, pluginstream extensions, pluginstream plugins, cloudstream extension, cloudstream repo, ott plugins" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/pluginstream.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/pluginstream.png" />
+    <link rel="apple-touch-icon" href="assets/pluginstream.png" />
+    <link rel="stylesheet" href="styles.css">
+    <!-- Socialbar & Popunder -->
+    <script src="https://pl29725287.effectivecpmnetwork.com/f8/a8/a9/f8a8a9c3a3f487069d3a8272483fa2ed.js"></script>
+    <style>
+        .back-link {
+            display: inline-block;
+            margin-bottom: 30px;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .back-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .plugins-container {
+            max-width: 1000px;
+            margin: 60px auto 60px;
+            padding: 0 20px;
+            z-index: 10;
+            position: relative;
+        }
+
+        .plugins-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .plugins-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #ffffff, var(--primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .plugins-subtitle {
+            color: #aaaaaa;
+            font-size: 1.1rem;
+        }
+
+        .plugins-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .sponsored-strip {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            padding: 18px 20px;
+            margin-bottom: 30px;
+            border-radius: 24px;
+            background: linear-gradient(90deg, rgba(0, 212, 255, 0.16), rgba(112, 0, 255, 0.16));
+            border: 1px solid rgba(255, 255, 255, 0.14);
+        }
+        .sponsored-strip p {
+            margin: 0;
+            color: #d5d5d5;
+            line-height: 1.6;
+            max-width: 650px;
+        }
+        .sponsored-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 46px;
+            padding: 0 18px;
+            border-radius: 14px;
+            text-decoration: none;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff, var(--primary));
+            color: #000000;
+        }
+        .sponsored-banner {
+            margin-bottom: 34px;
+            padding: 18px;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .plugin-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            backdrop-filter: blur(10px);
+        }
+
+        .plugin-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.05);
+        }
+
+        .plugin-name {
+            color: #ffffff;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .plugin-description {
+            color: #cccccc;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            flex-grow: 1;
+        }
+
+        .plugin-action {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .plugin-action svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .loading-text {
+            text-align: center;
+            color: #ffffff;
+            font-size: 1.2rem;
+            grid-column: 1 / -1;
+            padding: 50px;
+        }
+
+        @media (max-width: 768px) {
+            .plugins-title {
+                font-size: 2.2rem;
+            }
+            .plugins-container {
+                margin-top: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+
+        <main class="plugins-container">
+            <a href="index.html" class="back-link">← Back to PluginStream</a>
+
+            <section class="sponsored-strip" aria-label="Sponsored message">
+                <p>Sponsored: A compact sponsored strip and banner are shown at the top of the repository page to support the site without disrupting the installation flow.</p>
+                <a class="sponsored-btn" href="https://www.effectivecpmnetwork.com/q9fcq65yfr?key=08d2509c203cbea44e79039ef1bab143" target="_blank" rel="noopener noreferrer sponsored nofollow">Open Offer</a>
+            </section>
+
+            <div class="sponsored-banner" aria-label="Sponsored banner">
+                <script>
+                    atOptions = {
+                        'key' : '6a9374ce5ba7bf38f6bc7d29a48035bd',
+                        'format' : 'iframe',
+                        'height' : 50,
+                        'width' : 320,
+                        'params' : {}
+                    };
+                </script>
+                <script src="https://www.highperformanceformat.com/6a9374ce5ba7bf38f6bc7d29a48035bd/invoke.js"></script>
+            </div>
+
+            <!-- Native Ad Container -->
+            <div style="margin-bottom: 34px; padding: 20px; border-radius: 24px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); text-align: center;">
+                <h3 style="color: #ffffff; margin-bottom: 15px; font-size: 1.1rem; text-align: left; font-weight: 700;">Recommended for You</h3>
+                <div id="container-4a575ee99f3cffbac7552b0593539196"></div>
+                <script async="async" data-cfasync="false" src="https://pl29725289.effectivecpmnetwork.com/4a575ee99f3cffbac7552b0593539196/invoke.js"></script>
+            </div>
+
+            <div class="plugins-header">
+                <h1 class="plugins-title">Plugins Repository</h1>
+                <p class="plugins-subtitle">One-tap install for all your favorite streaming providers</p>
+            </div>
+
+            <div id="plugins-grid" class="plugins-grid">
+                <div class="loading-text">Loading plugins...</div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-container">
+                <div class="footer-bottom">
+                    <div class="footer-copyright">
+                        <p>&copy; <span id="current-year"></span> PluginStream. All rights reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        (function() {
+            var yearSpan = document.getElementById('current-year');
+            if (yearSpan) {
+                yearSpan.textContent = new Date().getFullYear();
+            }
+        })();
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Fetch and display plugins
+            fetch('plugins.json')
+                .then(response => response.json())
+                .then(data => {
+                    const grid = document.getElementById('plugins-grid');
+                    grid.innerHTML = ''; // Clear loading text
+
+                    data.repositories.forEach(repo => {
+                        const card = document.createElement('a');
+                        card.className = 'plugin-card';
+                        
+                        // Create cloudstreamrepo link
+                        const repoUrl = repo.url.replace('https://', '');
+                        card.href = `cloudstreamrepo://${repoUrl}`;
+
+                        card.innerHTML = `
+                            <div class="plugin-name">${repo.name}</div>
+                            <div class="plugin-description">${repo.description}</div>
+                            <div class="plugin-action">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="7 10 12 15 17 10"></polyline>
+                                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                                </svg>
+                                Install Repository
+                            </div>
+                        `;
+                        grid.appendChild(card);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error loading plugins:', error);
+                    document.getElementById('plugins-grid').innerHTML = '<div class="loading-text">Error loading plugins. Please try again later.</div>';
+                });
+        });
+    </script>
+</body>
+</html>

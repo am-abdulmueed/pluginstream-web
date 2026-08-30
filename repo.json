@@ -1,0 +1,8 @@
+{
+    "name": "PluginStream (All-in-One)",
+    "description": "Developed by Abdul Mueed!",
+    "manifestVersion": 1,
+    "pluginLists": [
+      "https://raw.githubusercontent.com/PluginStream/pluginstream-extensions/refs/heads/main/pluginstream_extensions.json"
+    ]
+}

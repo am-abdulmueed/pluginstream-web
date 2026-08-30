@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - PluginStream</title>
+  <meta name="description" content="Get in touch with PluginStream support, report bugs, or submit feature requests.">
+
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Unbounded:wght@400;500;700;900&display=swap"
+    rel="stylesheet">
+  <link rel="icon" href="./assets/pluginstream.png">
+
+  <style>
+    :root {
+      --canvas: #fffaf0;
+      --surface-soft: #faf5e8;
+      --surface-card: #f5f0e0;
+      --surface-dark: #0a1a1a;
+      --ink: #0a0a0a;
+      --body: #3a3a3a;
+      --muted: #6a6a6a;
+      --hairline: #e5e5e5;
+
+      --accent-violet: #b8a4ed;
+      --accent-pink: #ff4d8b;
+      --accent-sky: #a7c7e7;
+      --accent-peach: #ffb084;
+      --accent-ochre: #e8b94a;
+      --accent-mint: #a4d4c5;
+
+      --space-xxs: 4px;
+      --space-xs: 8px;
+      --space-sm: 12px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 32px;
+      --space-xxl: 48px;
+      --space-section: 96px;
+
+      --radius-xs: 6px;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --radius-pill: 9999px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--canvas);
+      color: var(--body);
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.55;
+      overflow-x: hidden;
+    }
+
+    h1,
+    h2,
+    h3,
+    .display-font {
+      font-family: 'Unbounded', sans-serif;
+      color: var(--ink);
+    }
+
+    .display-md {
+      font-size: 40px;
+      font-weight: 500;
+      letter-spacing: -1px;
+      line-height: 1.1;
+    }
+
+    .title-md {
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    .title-sm {
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.4;
+      color: var(--ink);
+    }
+
+    .body-md {
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.55;
+    }
+
+    .body-sm {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.55;
+    }
+
+    .caption {
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 var(--space-xl);
+    }
+
+    /* ── RIPPLE ── */
+    .ripple {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ripple-span {
+      position: absolute;
+      border-radius: 50%;
+      transform: scale(0);
+      animation: ripple 0.6s linear;
+      background-color: rgba(255, 255, 255, 0.3);
+      pointer-events: none;
+    }
+
+    .btn-secondary .ripple-span {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    @keyframes ripple {
+      to {
+        transform: scale(4);
+        opacity: 0;
+      }
+    }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.0;
+      border-radius: var(--radius-pill);
+      height: 48px;
+      padding: 0 28px;
+      cursor: pointer;
+      transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      text-decoration: none;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      border: none;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      background-color: var(--surface-dark);
+      color: #fff;
+    }
+
+    .btn-secondary {
+      background-color: var(--canvas);
+      color: var(--ink);
+      border: 1px solid var(--hairline);
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(255, 250, 240, 0.9);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 100;
+      transform: translateY(-100%);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-bottom 0.3s ease;
+      border-bottom: 1px solid transparent;
+    }
+
+    nav.visible {
+      transform: translateY(0);
+      border-bottom: 1px solid var(--hairline);
+    }
+
+    .nav-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 72px;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--ink);
+      font-family: 'Unbounded', sans-serif;
+    }
+
+    .nav-logo-img {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+    }
+
+    /* ── PAGE WRAPPER ── */
+    .page-wrapper {
+      padding-top: 48px;
+      padding-bottom: var(--space-section);
+    }
+
+    /* ── TOP BANNER (Sponsored) ── */
+    .top-banner {
+      background-color: var(--surface-card);
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-xl);
+      padding: var(--space-md) var(--space-lg);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      margin-bottom: var(--space-xl);
+    }
+
+    .top-banner-copy strong {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 14px;
+      color: var(--ink);
+    }
+
+    .top-banner-copy span {
+      display: block;
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      padding-top: 80px;
+      padding-bottom: 24px;
+      text-align: center;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 50% 50%, rgba(184, 164, 237, 0.15) 0%, rgba(255, 77, 139, 0.05) 25%, transparent 50%);
+      z-index: -1;
+      animation: rotate-gradient 20s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes rotate-gradient {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+
+      100% {
+        transform: translateY(0px);
+      }
+    }
+
+    .hero-logo {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto var(--space-xl);
+      border-radius: 28px;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+      animation: float 6s ease-in-out infinite;
+      display: block;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      padding: var(--space-xs) var(--space-md);
+      border-radius: var(--radius-pill);
+      background-color: var(--surface-card);
+      border: 1px solid var(--hairline);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: var(--space-lg);
+    }
+
+    .hero h1 {
+      margin-bottom: var(--space-md);
+    }
+
+    .hero-sub {
+      color: var(--muted);
+      max-width: 620px;
+      margin: 0 auto var(--space-xxl);
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: var(--space-lg);
+      transition: color 0.2s ease;
+    }
+
+    .back-link:hover {
+      color: var(--ink);
+    }
+
+    /* ── ADS SECTION ── */
+    .ads-section {
+      margin-bottom: var(--space-xl);
+    }
+
+    .ad-card {
+      background-color: var(--surface-card);
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-xl);
+      padding: var(--space-lg);
+    }
+
+    .ad-card.full-width {
+      width: 100%;
+    }
+
+    .ad-card h3 {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: var(--space-xs);
+    }
+
+    .ad-slot {
+      min-height: 70px;
+      border-radius: var(--radius-md);
+      border: 2px dashed var(--hairline);
+      background-color: var(--surface-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      overflow: hidden;
+    }
+
+    /* ── CONTACT GRID & CARDS ── */
+    .section-title {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 22px;
+      font-weight: 500;
+      color: var(--ink);
+      margin-top: var(--space-xl);
+      margin-bottom: var(--space-lg);
+      padding-bottom: var(--space-xs);
+      border-bottom: 2px solid var(--surface-card);
+    }
+
+    .section-content {
+      font-size: 15px;
+      color: var(--muted);
+      margin-bottom: var(--space-lg);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-lg);
+      margin-bottom: var(--space-xl);
+    }
+
+    .contact-card {
+      background-color: var(--surface-card);
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-xl);
+      padding: var(--space-xl);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: border-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .contact-card:hover {
+      border-color: var(--accent-violet);
+      transform: translateY(-2px);
+    }
+
+    .card-title {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: var(--space-xs);
+    }
+
+    .card-description {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.5;
+      margin-bottom: var(--space-lg);
+    }
+
+    .card-button-group {
+      display: flex;
+      gap: var(--space-xs);
+    }
+
+    .card-button-group .btn {
+      flex: 1;
+    }
+
+    .response-time {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: var(--space-sm);
+      font-style: italic;
+    }
+
+    /* ── DEVELOPER INFO & LISTS ── */
+    .developer-info {
+      background-color: var(--accent-sky);
+      border-radius: var(--radius-xl);
+      padding: var(--space-xl);
+      text-align: center;
+      margin-bottom: var(--space-xl);
+    }
+
+    .developer-title {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: var(--space-md);
+    }
+
+    .developer-links {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-md);
+    }
+
+    .resources-list {
+      list-style: none;
+      margin-bottom: var(--space-xl);
+    }
+
+    .resources-list li {
+      position: relative;
+      padding-left: 28px;
+      margin-bottom: var(--space-sm);
+      font-size: 15px;
+      color: var(--body);
+    }
+
+    .resources-list li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: var(--accent-pink);
+      font-weight: bold;
+    }
+
+    .highlight-text {
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    /* ── THANK YOU ── */
+    .thank-you {
+      text-align: center;
+      margin-top: var(--space-xl);
+      padding: var(--space-xl);
+      background-color: var(--surface-soft);
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-xl);
+    }
+
+    .echo-signature {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      margin-top: var(--space-sm);
+      color: var(--ink);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background-color: var(--surface-soft);
+      border-top: 1px solid var(--hairline);
+      padding: 48px 0;
+      padding-bottom: 80px;
+      margin-top: var(--space-section);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-xl);
+      align-items: flex-start;
+    }
+
+    .footer-col-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
+    .footer-nav {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      font-size: 28px;
+      color: var(--ink);
+      font-family: 'Unbounded', sans-serif;
+      font-weight: 500;
+      margin-bottom: var(--space-xs);
+    }
+
+    .footer-logo img {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      margin-right: 12px;
+    }
+
+    .footer-tagline {
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .footer-link {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    .footer-link:hover {
+      color: var(--ink);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 28px;
+    }
+
+    .social-icon-link {
+      display: inline-block;
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+    }
+
+    .social-icon-link:hover {
+      transform: scale(1.1);
+    }
+
+    .social-icon-link img {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+      display: block;
+    }
+
+    /* ── SUPPORT FAB — set display:none to hide, restore to "flex" to show ── */
+    .support-fab {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      z-index: 1000;
+      display: none;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 16px;
+      text-decoration: none;
+    }
+
+    .support-msg-bubble {
+      background-color: var(--canvas);
+      color: var(--ink);
+      border: 2px solid var(--ink);
+      box-shadow: 4px 4px 0px var(--ink);
+      padding: 16px 24px;
+      border-radius: 20px 20px 0 20px;
+      font-size: 15px;
+      font-weight: 600;
+      max-width: 260px;
+      opacity: 0;
+      transform: translateY(10px) scale(0.9);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      pointer-events: none;
+      line-height: 1.5;
+    }
+
+    .support-msg-bubble.show {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 2px;
+      background-color: var(--ink);
+      margin-left: 2px;
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      50% {
+        opacity: 0;
+      }
+    }
+
+    .support-btn {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      border: 3px solid var(--ink);
+      box-shadow: 4px 4px 0px var(--ink);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      overflow: hidden;
+      background: var(--surface-card);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .support-btn img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .support-fab:hover .support-btn {
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0px var(--ink);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-col-right {
+        align-items: flex-start;
+      }
+
+      .footer-nav {
+        justify-content: flex-start;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-wrapper {
+        padding-top: 24px;
+      }
+
+      .hero {
+        padding-top: 56px;
+        padding-bottom: 16px;
+      }
+
+      .display-md {
+        font-size: 28px;
+      }
+
+      .container {
+        padding: 0 var(--space-md);
+      }
+
+      .support-fab {
+        bottom: 20px;
+        right: 16px;
+      }
+
+      .support-msg-bubble {
+        font-size: 13px;
+        padding: 12px 16px;
+        max-width: 220px;
+      }
+
+      .top-banner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .top-banner .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="index.html" class="nav-logo">
+          <img src="./assets/pluginstream.png" alt="PluginStream" class="nav-logo-img">
+          PluginStream
+        </a>
+        <a href="index.html" class="btn btn-secondary ripple" style="height:40px; font-size:13px;">← Back</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- PAGE WRAPPER -->
+  <div class="page-wrapper">
+    <div class="container">
+
+      <a href="index.html" class="back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        Back to PluginStream
+      </a>
+
+      <!-- SPONSORED BANNER -->
+      <div class="top-banner">
+        <div class="top-banner-copy">
+          <strong>Sponsored Access</strong>
+          <span>Support our free app by checking out our sponsored partner offer!</span>
+        </div>
+        <a class="btn btn-primary ripple"
+          href="https://www.effectivecpmnetwork.com/q9fcq65yfr?key=08d2509c203cbea44e79039ef1bab143" target="_blank"
+          rel="noopener noreferrer sponsored nofollow">Open offer</a>
+      </div>
+
+      <!-- HERO -->
+      <section class="hero">
+        <img src="./assets/pluginstream.png" alt="PluginStream" class="hero-logo">
+        <div class="hero-badge">Get In Touch</div>
+        <h1 class="display-md">Contact Us</h1>
+        <p class="body-md hero-sub">I'd love to hear from you! Whether you have questions, need help, want to report a
+          bug, or have suggestions for new features, I'm here to help.</p>
+      </section>
+
+      <!-- AD: BANNER -->
+      <section class="ads-section">
+        <div class="ad-card full-width" style="text-align:center;">
+          <div class="ad-slot">
+            <script>
+              atOptions = {
+                'key': '6a9374ce5ba7bf38f6bc7d29a48035bd',
+                'format': 'iframe',
+                'height': 50,
+                'width': 320,
+                'params': {}
+              };
+            </script>
+            <script src="https://www.highperformanceformat.com/6a9374ce5ba7bf38f6bc7d29a48035bd/invoke.js"></script>
+          </div>
+        </div>
+      </section>
+
+      </section>
+
+      <!-- MAIN CONTENT SECTION -->
+      <section>
+        <h2 class="section-title">Get in Touch</h2>
+        <div class="contact-grid">
+
+          <!-- Card 1 -->
+          <div class="contact-card">
+            <div>
+              <h3 class="card-title">Email Support</h3>
+              <p class="card-description">For general inquiries, support questions, or feedback.</p>
+            </div>
+            <div>
+              <a href="mailto:am.abdulmueed3@gmail.com" class="btn btn-primary ripple" style="width:100%;">Send
+                Email</a>
+              <p class="response-time">I typically respond within 24-48 hours</p>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="contact-card">
+            <div>
+              <h3 class="card-title">Bug Reports</h3>
+              <p class="card-description">Found a bug? Help us fix it by reporting it with setup replication steps.</p>
+            </div>
+            <div>
+              <div class="card-button-group">
+                <a href="https://github.com/am-abdulmueed/pluginstream/issues" target="_blank" rel="noopener noreferrer"
+                  class="btn btn-primary ripple">GitHub</a>
+                <a href="telegram.html" target="_blank" rel="noopener noreferrer"
+                  class="btn btn-secondary ripple">Telegram</a>
+              </div>
+              <p class="response-time">Please include platform information and steps</p>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="contact-card">
+            <div>
+              <h3 class="card-title">Feature Requests</h3>
+              <p class="card-description">Have an idea for a new module or feature? Let us know your motivation.</p>
+            </div>
+            <div>
+              <div class="card-button-group">
+                <a href="https://github.com/am-abdulmueed/pluginstream/issues" target="_blank" rel="noopener noreferrer"
+                  class="btn btn-primary ripple">GitHub</a>
+                <a href="telegram.html" target="_blank" rel="noopener noreferrer"
+                  class="btn btn-secondary ripple">Telegram</a>
+              </div>
+              <p class="response-time">Describe the use case clearly</p>
+            </div>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="contact-card">
+            <div>
+              <h3 class="card-title">General Questions</h3>
+              <p class="card-description">Have a question? Check previous tickets or ask the community directly.</p>
+            </div>
+            <div>
+              <div class="card-button-group">
+                <a href="https://github.com/am-abdulmueed/pluginstream/discussions" target="_blank"
+                  rel="noopener noreferrer" class="btn btn-primary ripple">GitHub</a>
+                <a href="telegram.html" target="_blank" rel="noopener noreferrer"
+                  class="btn btn-secondary ripple">Telegram</a>
+              </div>
+              <p class="response-time">Check existing issues first</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- COMMUNITY & SOCIAL -->
+      <section>
+        <h2 class="section-title">Community & Social</h2>
+        <p class="section-content">Connect with us and the PluginStream community ecosystem:</p>
+        <div class="contact-grid">
+          <div class="contact-card">
+            <div>
+              <h3 class="card-title">GitHub Repository</h3>
+              <p class="card-description">View source code, report deployment issues, and contribute modules.</p>
+            </div>
+            <a href="github.html" target="_blank" rel="noopener noreferrer" class="btn btn-secondary ripple">Visit
+              GitHub</a>
+          </div>
+
+          <div class="contact-card">
+            <div>
+              <h3 class="card-title">Telegram Community</h3>
+              <p class="card-description">Join our Telegram channel group for live real-time announcements.</p>
+            </div>
+            <a href="telegram.html" target="_blank" rel="noopener noreferrer" class="btn btn-secondary ripple">Join
+              Telegram</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- DEVELOPER INFO -->
+      <div class="developer-info">
+        <h3 class="developer-title">Developer Information</h3>
+        <div class="developer-links">
+          <a href="github.html" target="_blank" rel="noopener noreferrer" class="btn btn-primary ripple">GitHub</a>
+          <a href="portfolio.html" target="_blank" rel="noopener noreferrer"
+            class="btn btn-secondary ripple">Website</a>
+        </div>
+      </div>
+
+      <!-- BEFORE CONTACTING US -->
+      <section>
+        <h2 class="section-title">Before Contacting Us</h2>
+        <p class="section-content">To help us help you faster, please check these resources first:</p>
+        <ul class="resources-list">
+          <li><span class="highlight-text">README:</span> Check our README file for container setup and repository
+            instructions.</li>
+          <li><span class="highlight-text">GitHub Issues:</span> Search existing logs to see if your problem has already
+            been reported.</li>
+          <li><span class="highlight-text">Documentation:</span> Check our custom setup guide for comprehensive
+            instructions.</li>
+        </ul>
+      </section>
+
+      <!-- WHAT TO INCLUDE -->
+      <section>
+        <h2 class="section-title">What to Include in Your Message</h2>
+        <p class="section-content">When writing to us, please make sure to supply:</p>
+        <ul class="resources-list">
+          <li><span class="highlight-text">Platform Information:</span> Operating system version, device model (TV vs
+            Phone).</li>
+          <li><span class="highlight-text">App Version:</span> The exact build version of PluginStream you're using.
+          </li>
+          <li><span class="highlight-text">Problem Description:</span> Clear layout descriptions or crash traces.</li>
+          <li><span class="highlight-text">Screenshots/Logs:</span> Attach visual context or debug logs if applicable.
+          </li>
+        </ul>
+      </section>
+
+      <!-- RESPONSE TIMES -->
+      <section>
+        <h2 class="section-title">Response Times</h2>
+        <p class="section-content">I aim to evaluate all triage messages within:</p>
+        <ul class="resources-list">
+          <li><span class="highlight-text">Email:</span> 24-48 hours response cycle.</li>
+          <li><span class="highlight-text">GitHub Issues:</span> 2-3 days average review.</li>
+          <li><span class="highlight-text">Bug Reports:</span> Priority tracking response within 24 hours.</li>
+        </ul>
+      </section>
+
+      <!-- CONTRIBUTING -->
+      <section>
+        <h2 class="section-title">Contributing</h2>
+        <p class="section-content">Want to contribute to PluginStream? We welcome repository contributions!</p>
+        <ul class="resources-list">
+          <li><span class="highlight-text">Code Contributions:</span> Fork the repository and open custom pull requests.
+          </li>
+          <li><span class="highlight-text">Documentation:</span> Help optimize ecosystem wiki pages and tutorial
+            materials.</li>
+          <li><span class="highlight-text">Extensions:</span> Build or enhance modular streaming manifest files.</li>
+        </ul>
+      </section>
+
+      <!-- THANK YOU NOTE -->
+      <div class="thank-you">
+        <p>Thank you for using PluginStream!</p>
+        <p>Your modular feedback helps us engineer a better player for everyone globally.</p>
+        <div class="echo-signature">PluginStream</div>
+      </div>
+
+    </div>
+  </div>
+
+
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo">
+            <img src="./assets/pluginstream.png" alt="PluginStream Logo">
+            PluginStream
+          </div>
+          <div class="footer-tagline body-sm">Free Premium Movies &amp; OTT Plugins</div>
+          <div class="caption" style="margin-top: 16px; color: var(--muted); max-width: 280px; line-height: 1.4;">
+            The ultimate free streaming app with ad-free experience, 100+ OTT plugins, and seamless access to Netflix,
+            Prime, HBO, Disney+ and YouTube.
+          </div>
+        </div>
+        </section>
+        <div class="footer-col-right">
+          <div>
+            <div class="title-sm" style="margin-bottom: 16px; color: var(--ink); font-size: 20px;">Join the community
+            </div>
+            <div class="social-links">
+              <a href="github.html" target="_blank" rel="noopener noreferrer" class="social-icon-link">
+                <img src="./assets/github.svg" alt="GitHub">
+              </a>
+              <a href="telegram.html" target="_blank" rel="noopener noreferrer" class="social-icon-link">
+                <img src="./assets/telegram.svg" alt="Telegram">
+              </a>
+              <a href="contact.html" target="_blank" rel="noopener noreferrer" class="social-icon-link">
+                <img src="./assets/email.svg" alt="Email">
+              </a>
+            </div>
+          </div>
+          <div class="footer-nav" style="margin-top: 32px;">
+            <a href="extensions.html" class="footer-link" target="_blank" rel="noopener noreferrer">Extensions</a>
+            <a href="portfolio.html" class="footer-link" target="_blank" rel="noopener noreferrer">Portfolio</a>
+            <a href="privacy.html" class="footer-link">Privacy Policy</a>
+            <a href="terms.html" class="footer-link">Terms &amp; Conditions</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SUPPORT FAB -->
+  <a href="https://omg10.com/4/11143190" target="_blank" rel="noopener noreferrer" class="support-fab" id="support-fab">
+    <div class="support-msg-bubble">
+      <span id="typewriter-text"></span><span class="cursor">|</span>
+    </div>
+    <div class="support-btn">
+      <img src="https://github.com/am-abdulmueed.png" alt="Support" class="support-avatar">
+    </div>
+  </a>
+
+  <script>
+    // ── Navbar scroll & FAB activation ──
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      const currentScrollY = window.scrollY;
+      if (currentScrollY > 50) {
+        navbar.classList.add('visible');
+      } else {
+        navbar.classList.remove('visible');
+      }
+
+      const fabBubble = document.querySelector('.support-msg-bubble');
+      if (currentScrollY > 50) {
+        if (fabBubble) fabBubble.classList.add('show');
+        if (typeof startTypeWriter === 'function') startTypeWriter();
+      } else {
+        if (fabBubble) fabBubble.classList.remove('show');
+      }
+    }, { passive: true });
+
+    // ── Ripple effect ──
+    function createRipple(event) {
+      const button = event.currentTarget;
+      const circle = document.createElement("span");
+      const diameter = Math.max(button.clientWidth, button.clientHeight);
+      const radius = diameter / 2;
+      let x, y;
+      if (event.touches && event.touches.length > 0) {
+        x = event.touches[0].clientX - button.getBoundingClientRect().left;
+        y = event.touches[0].clientY - button.getBoundingClientRect().top;
+      } else {
+        x = event.clientX - button.getBoundingClientRect().left;
+        y = event.clientY - button.getBoundingClientRect().top;
+      }
+      circle.style.width = circle.style.height = `${diameter}px`;
+      circle.style.left = `${x - radius}px`;
+      circle.style.top = `${y - radius}px`;
+      circle.classList.add("ripple-span");
+      const existing = button.querySelector('.ripple-span');
+      if (existing) existing.remove();
+      button.appendChild(circle);
+      setTimeout(() => circle.remove(), 600);
+    }
+
+    // ── Typewriter FAB ──
+    const typeText = document.getElementById('typewriter-text');
+    const msg = "Hi! If you love PluginStream, consider supporting my work! ☕";
+    let typeIndex = 0;
+    let hasTyped = false;
+
+    function typeWriter() {
+      if (typeIndex < msg.length) {
+        typeText.innerHTML += msg.charAt(typeIndex);
+        typeIndex++;
+        setTimeout(typeWriter, 40);
+      } else {
+        setTimeout(() => {
+          const cursor = document.querySelector('.cursor');
+          if (cursor) cursor.style.display = 'none';
+        }, 2000);
+      }
+    }
+
+    function startTypeWriter() {
+      if (!hasTyped) { hasTyped = true; setTimeout(typeWriter, 300); }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.btn.ripple').forEach(btn => {
+        btn.addEventListener('mousedown', createRipple);
+        btn.addEventListener('touchstart', createRipple, { passive: true });
+      });
+    });
+  </script>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-analytics.js";
+    const firebaseConfig = {
+      apiKey: "AIzaSyCuTunuW_XuQ_bcQdqwNElEfKZlHP8WdSc",
+      authDomain: "pluginstream-94ff5.firebaseapp.com",
+      projectId: "pluginstream-94ff5",
+      storageBucket: "pluginstream-94ff5.firebasestorage.app",
+      messagingSenderId: "525209317723",
+      appId: "1:525209317723:web:02102e4da04f0c05bcea7e",
+      measurementId: "G-2HWE46P8EY"
+    };
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+  </script>
+  <!-- Lazy Load Ads -->
+  <script>
+    let adsLoaded = false;
+
+    // Function to load all ads
+    function loadAds() {
+      if (adsLoaded) return;
+      adsLoaded = true;
+
+      // Load push notification ad
+      const pushScript = document.createElement('script');
+      pushScript.src = 'https://5gvci.com/act/files/tag.min.js?z=11143232';
+      pushScript.setAttribute('data-cfasync', 'false');
+      pushScript.async = true;
+      document.body.appendChild(pushScript);
+
+      // Load popunder ad after delay
+      setTimeout(() => {
+        const popunderScript = document.createElement('script');
+        popunderScript.innerHTML = "(function(s){s.dataset.zone='11143227',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))";
+        document.body.appendChild(popunderScript);
+      }, 2000);
+
+      // Load in-page push after delay
+      setTimeout(() => {
+        const inPageScript = document.createElement('script');
+        inPageScript.innerHTML = "(function(s){s.dataset.zone='11143238',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))";
+        document.body.appendChild(inPageScript);
+      }, 3000);
+
+      // Load vignette & app banner after delay
+      setTimeout(() => {
+        const vignetteScript = document.createElement('script');
+        vignetteScript.innerHTML = "(function(s){s.dataset.zone='11143239',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))";
+        document.body.appendChild(vignetteScript);
+      }, 4000);
+
+      // Load ad slots if they exist
+      loadAdSlots();
+    }
+
+    function loadAdSlots() {
+      // Ad slot 1
+      const adSlot1 = document.getElementById('ad-slot-1');
+      if (adSlot1) {
+        const atOptions1 = document.createElement('script');
+        atOptions1.innerHTML = "atOptions = { 'key' : '6a9374ce5ba7bf38f6bc7d29a48035bd', 'format' : 'iframe', 'height' : 50, 'width' : 320, 'params' : {} };";
+        adSlot1.appendChild(atOptions1);
+
+        const invokeScript1 = document.createElement('script');
+        invokeScript1.src = 'https://www.highperformanceformat.com/6a9374ce5ba7bf38f6bc7d29a48035bd/invoke.js';
+        invokeScript1.async = true;
+        adSlot1.appendChild(invokeScript1);
+      }
+
+      // Ad slot 2
+      const adSlot2 = document.getElementById('ad-slot-2');
+      if (adSlot2) {
+        const atOptions2 = document.createElement('script');
+        atOptions2.innerHTML = "atOptions = { 'key' : '6a9374ce5ba7bf38f6bc7d29a48035bd', 'format' : 'iframe', 'height' : 50, 'width' : 320, 'params' : {} };";
+        adSlot2.appendChild(atOptions2);
+
+        const invokeScript2 = document.createElement('script');
+        invokeScript2.src = 'https://www.highperformanceformat.com/6a9374ce5ba7bf38f6bc7d29a48035bd/invoke.js';
+        invokeScript2.async = true;
+        adSlot2.appendChild(invokeScript2);
+      }
+    }
+
+    // Intersection Observer for lazy loading ads when they come into view
+    document.addEventListener('DOMContentLoaded', () => {
+      const adsSection = document.getElementById('ads-section');
+
+      if (adsSection && 'IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              loadAds();
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.1 });
+
+        observer.observe(adsSection);
+      } else {
+        // Fallback for older browsers - load ads after page is fully loaded
+        window.addEventListener('load', loadAds);
+      }
+
+      // Also load ads after a timeout just in case
+      setTimeout(loadAds, 5000);
+    });
+  </script>
+</body>
+
+</html>

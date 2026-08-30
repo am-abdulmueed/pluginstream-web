@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+    <title>PluginStream Blog</title>
+    <link>https://pluginstream.pages.dev/blog.html</link>
+    <description>Stay updated with the latest features, guides, and insights from the PluginStream ecosystem.</description>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 09 Jun 2026 12:00:00 +0000</lastBuildDate>
+    <atom:link href="https://pluginstream.pages.dev/rss.xml" rel="self" type="application/rss+xml" />
+
+    <!-- Blog Post: Games -->
+    <item>
+        <title>1.6k+ Instant Games Added! Fast &amp; No Install</title>
+        <link>https://pluginstream.pages.dev/blog.html#games</link>
+        <guid>https://pluginstream.pages.dev/blog.html#games</guid>
+        <pubDate>Tue, 09 Jun 2026 10:00:00 +0000</pubDate>
+        <description>We have officially integrated a massive library of over 1600+ high-quality games directly into the PluginStream ecosystem. Play instantly without installation!</description>
+    </item>
+
+    <!-- Blog Post: Support Devs -->
+    <item>
+        <title>Support Our Developers: New Offers for Maintenance</title>
+        <link>https://pluginstream.pages.dev/blog.html#support</link>
+        <guid>https://pluginstream.pages.dev/blog.html#support</guid>
+        <pubDate>Mon, 08 Jun 2026 15:00:00 +0000</pubDate>
+        <description>Learn how you can help keep PluginStream fast, ad-free, and always working by participating in our new optional support offers.</description>
+    </item>
+
+    <!-- Blog Post: Introduction -->
+    <item>
+        <title>Introducing PluginStream: The Future of Modular Streaming</title>
+        <link>https://pluginstream.pages.dev/blog.html#intro</link>
+        <guid>https://pluginstream.pages.dev/blog.html#intro</guid>
+        <pubDate>Tue, 09 Jun 2026 08:00:00 +0000</pubDate>
+        <description>Discover how PluginStream is revolutionizing the way we consume content with its open-source, plugin-based architecture.</description>
+    </item>
+
+    <!-- Blog Post: Tutorial -->
+    <item>
+        <title>Step-by-Step Guide: Setting Up Your First Repository</title>
+        <link>https://pluginstream.pages.dev/blog.html#setup</link>
+        <guid>https://pluginstream.pages.dev/blog.html#setup</guid>
+        <pubDate>Sun, 07 Jun 2026 12:00:00 +0000</pubDate>
+        <description>A comprehensive guide for beginners to help you add extensions and start streaming your favorite content in minutes.</description>
+    </item>
+
+    <!-- Blog Post: TV Update -->
+    <item>
+        <title>TV Version Update: Black Screen Fixes &amp; Performance Boost</title>
+        <link>https://pluginstream.pages.dev/blog.html#tv-update</link>
+        <guid>https://pluginstream.pages.dev/blog.html#tv-update</guid>
+        <pubDate>Fri, 05 Jun 2026 18:00:00 +0000</pubDate>
+        <description>The latest TV extension update addresses crashes and optimizes remote control response for a smoother experience.</description>
+    </item>
+
+</channel>
+</rss>

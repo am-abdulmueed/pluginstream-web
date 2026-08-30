@@ -1,0 +1,1529 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog – PluginStream | Updates, Guides & Tutorials</title>
+  <meta name="description"
+    content="Stay updated with the latest features, guides, and insights from the PluginStream ecosystem.">
+
+  <!-- Ads optimized for lazy loading -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Unbounded:wght@400;500;700&display=swap"
+    rel="stylesheet">
+  <link rel="icon" href="./assets/pluginstream.png">
+  <link rel="alternate" type="application/rss+xml" title="PluginStream Blog RSS Feed" href="rss.xml">
+
+  <style>
+    :root {
+      --canvas: #fffaf0;
+      --surface-soft: #faf5e8;
+      --surface-card: #f5f0e0;
+      --surface-dark: #0a1a1a;
+      --ink: #0a0a0a;
+      --body: #3a3a3a;
+      --muted: #6a6a6a;
+      --hairline: #e5e5e5;
+
+      --accent-violet: #b8a4ed;
+      --accent-pink: #ff4d8b;
+      --accent-sky: #a7c7e7;
+      --accent-peach: #ffb084;
+      --accent-ochre: #e8b94a;
+      --accent-mint: #a4d4c5;
+
+      --space-xxs: 4px;
+      --space-xs: 8px;
+      --space-sm: 12px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 32px;
+      --space-xxl: 48px;
+      --space-section: 96px;
+
+      --radius-xs: 6px;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --radius-pill: 9999px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--canvas);
+      color: var(--body);
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.55;
+      overflow-x: hidden;
+    }
+
+    h1,
+    h2,
+    h3,
+    .display-font {
+      font-family: 'Unbounded', sans-serif;
+      color: var(--ink);
+    }
+
+    .display-md {
+      font-size: 40px;
+      font-weight: 500;
+      letter-spacing: -1px;
+      line-height: 1.1;
+    }
+
+    .body-md {
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.55;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 var(--space-xl);
+    }
+
+    /* ── RIPPLE ── */
+    .ripple {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ripple-span {
+      position: absolute;
+      border-radius: 50%;
+      transform: scale(0);
+      animation: ripple 0.6s linear;
+      background-color: rgba(255, 255, 255, 0.3);
+      pointer-events: none;
+    }
+
+    .btn-secondary .ripple-span {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    @keyframes ripple {
+      to {
+        transform: scale(4);
+        opacity: 0;
+      }
+    }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.0;
+      border-radius: var(--radius-pill);
+      height: 48px;
+      padding: 0 28px;
+      cursor: pointer;
+      transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      text-decoration: none;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      border: none;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      background-color: var(--surface-dark);
+      color: #fff;
+    }
+
+    .btn-secondary {
+      background-color: var(--canvas);
+      color: var(--ink);
+      border: 1px solid var(--hairline);
+    }
+
+    .btn-accent {
+      background-color: var(--accent-violet);
+      color: var(--ink);
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(255, 250, 240, 0.9);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 100;
+      transform: translateY(-100%);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-bottom 0.3s ease;
+      border-bottom: 1px solid transparent;
+    }
+
+    nav.visible {
+      transform: translateY(0);
+      border-bottom: 1px solid var(--hairline);
+    }
+
+    .nav-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 72px;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--ink);
+      font-family: 'Unbounded', sans-serif;
+    }
+
+    .nav-logo-img {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+    }
+
+    /* ── PAGE WRAPPER ── */
+    .page-wrapper {
+      padding-top: 48px;
+      padding-bottom: var(--space-section);
+    }
+
+    /* ── TOP BANNER (Sponsored) ── */
+    .top-banner {
+      background-color: var(--surface-card);
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-xl);
+      padding: var(--space-md) var(--space-lg);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      margin-bottom: var(--space-xl);
+    }
+
+    .top-banner-copy strong {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 14px;
+      color: var(--ink);
+    }
+
+    .top-banner-copy span {
+      display: block;
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      padding-top: 80px;
+      padding-bottom: 24px;
+      text-align: center;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 50% 50%, rgba(184, 164, 237, 0.15) 0%, rgba(255, 77, 139, 0.05) 25%, transparent 50%);
+      z-index: -1;
+      animation: rotate-gradient 20s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes rotate-gradient {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+
+      100% {
+        transform: translateY(0px);
+      }
+    }
+
+    .hero-logo {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto var(--space-xl);
+      border-radius: 28px;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+      animation: float 6s ease-in-out infinite;
+      display: block;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      padding: var(--space-xs) var(--space-md);
+      border-radius: var(--radius-pill);
+      background-color: var(--surface-card);
+      border: 1px solid var(--hairline);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: var(--space-lg);
+    }
+
+    .hero h1 {
+      margin-bottom: var(--space-md);
+    }
+
+    .hero-sub {
+      color: var(--muted);
+      max-width: 560px;
+      margin: 0 auto var(--space-xxl);
+    }
+
+    /* ── ADS SECTION ── */
+    .ads-section {
+      margin-bottom: var(--space-xl);
+    }
+
+    .ads-section-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: var(--space-lg);
+      text-align: center;
+    }
+
+    .ads-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-lg);
+    }
+
+    .ad-card {
+      background-color: var(--surface-card);
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-xl);
+      padding: var(--space-lg);
+      width: 100%;
+      min-width: 0;
+      /* Grid ya flexible layouts me width overflow rokta hai */
+      overflow: hidden;
+      /* Koi ad element card boundary se bahar nahi nikal sakega */
+      box-sizing: border-box;
+    }
+
+    .ad-card.full-width {
+      grid-column: 1 / -1;
+    }
+
+    .ad-card h3 {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: var(--space-xs);
+    }
+
+    .ad-card p {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: var(--space-md);
+    }
+
+    .ad-slot {
+      min-height: 100px;
+      border-radius: var(--radius-md);
+      border: 2px dashed var(--hairline);
+      background-color: var(--surface-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      padding: var(--space-md);
+      overflow: hidden;
+      width: 100%;
+      max-width: 100%;
+      /* Iframe ko responsive banata hai */
+    }
+
+    .ad-slot.banner-slot {
+      min-height: 70px;
+    }
+
+    /* Forcing all nested dynamic scripts, iframes and ad wrappers to follow the column width */
+    .ad-slot iframe,
+    .ad-slot ins,
+    .ad-slot div,
+    [id^="container-"] iframe,
+    [id^="container-"] div,
+    .post-ads-inner iframe,
+    .post-ads-inner div {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+
+    /* ── SCROLLABLE NATIVE FRAME LOGIC ── */
+    .native-ad-frame {
+      width: 100%;
+      max-height: 240px;
+      /* Agar ads bohot lambi hongi to automatic scrollbar aa jayega */
+      overflow-y: auto;
+      /* Vertical scroll active karne k liye */
+      overflow-x: hidden;
+      /* Width stretch ko block karne k liye */
+      border-radius: var(--radius-md);
+      background-color: var(--surface-soft);
+      scrollbar-width: thin;
+      /* Clean default styling */
+    }
+
+    /* Strict container clamp framework for runtime injection */
+    .native-ad-frame iframe,
+    .native-ad-frame div {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+
+    /* ── BLOG GRID ── */
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: var(--space-lg);
+      margin-bottom: var(--space-xl);
+    }
+
+    /* ── BLOG CARD ── */
+    .blog-card {
+      background-color: var(--surface-card);
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+    }
+
+    .blog-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.09);
+    }
+
+    .blog-card-thumb {
+      width: 100%;
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.4);
+      letter-spacing: 2px;
+      flex-shrink: 0;
+    }
+
+    .blog-card-body {
+      padding: var(--space-lg);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .blog-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      background-color: rgba(10, 10, 10, 0.08);
+      color: var(--ink);
+      margin-bottom: var(--space-sm);
+      width: fit-content;
+    }
+
+    .blog-card-title {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--ink);
+      line-height: 1.4;
+      margin-bottom: var(--space-sm);
+    }
+
+    .blog-card-excerpt {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+      flex: 1;
+      margin-bottom: var(--space-lg);
+    }
+
+    .blog-card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: var(--space-md);
+      border-top: 1px solid var(--hairline);
+    }
+
+    .blog-card-date {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .read-more-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--ink);
+      transition: gap 0.2s ease;
+    }
+
+    .read-more-link:hover {
+      gap: 10px;
+    }
+
+    /* ── FOOTER NOTE ── */
+    .footer-note {
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+      margin-top: var(--space-xl);
+      padding: var(--space-lg);
+      background-color: var(--surface-soft);
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-lg);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background-color: var(--surface-soft);
+      border-top: 1px solid var(--hairline);
+      padding: 48px 0 80px;
+      margin-top: var(--space-section);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-xl);
+      align-items: flex-start;
+    }
+
+    .footer-col-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
+    .footer-nav {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      font-size: 28px;
+      color: var(--ink);
+      font-family: 'Unbounded', sans-serif;
+      font-weight: 500;
+      margin-bottom: var(--space-xs);
+    }
+
+    .footer-logo img {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      margin-right: 12px;
+    }
+
+    .footer-tagline {
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .footer-link {
+      color: var(--muted);
+      font-size: 16px;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    .footer-link:hover {
+      color: var(--ink);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 28px;
+    }
+
+    .social-icon-link {
+      display: inline-block;
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+    }
+
+    .social-icon-link:hover {
+      transform: scale(1.1);
+    }
+
+    .social-icon-link img {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+      display: block;
+    }
+
+    /* ── POST OVERLAY ── */
+    .post-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 250, 240, 0.96);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      z-index: 2000;
+      display: none;
+      overflow-y: auto;
+      padding: 60px 20px;
+    }
+
+    .post-overlay.active {
+      display: block;
+      animation: fadeOverlay 0.35s ease;
+    }
+
+    @keyframes fadeOverlay {
+      from {
+        opacity: 0;
+        transform: scale(0.98);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .post-detail-content {
+      max-width: 760px;
+      margin: 0 auto;
+      background-color: var(--surface-card);
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-xl);
+      padding: var(--space-xxl) 48px;
+      position: relative;
+    }
+
+    .close-post {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: var(--surface-soft);
+      border: 1px solid var(--hairline);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 20px;
+      color: var(--muted);
+      transition: color 0.2s ease, transform 0.2s ease;
+    }
+
+    .close-post:hover {
+      color: var(--ink);
+      transform: rotate(90deg);
+    }
+
+    .post-detail-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      background-color: var(--accent-violet);
+      color: var(--ink);
+      margin-bottom: var(--space-lg);
+      width: fit-content;
+    }
+
+    .post-detail-title {
+      font-family: 'Unbounded', sans-serif;
+      font-size: clamp(22px, 4vw, 32px);
+      font-weight: 500;
+      color: var(--ink);
+      line-height: 1.25;
+      margin-bottom: var(--space-xl);
+      letter-spacing: -0.5px;
+    }
+
+    .post-detail-body {
+      font-size: 15px;
+      color: var(--body);
+      line-height: 1.75;
+    }
+
+    .post-detail-body p {
+      margin-bottom: var(--space-lg);
+    }
+
+    .post-detail-body h3 {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--ink);
+      margin: var(--space-xl) 0 var(--space-md);
+    }
+
+    .post-detail-body ul,
+    .post-detail-body ol {
+      padding-left: 20px;
+      margin-bottom: var(--space-lg);
+    }
+
+    .post-detail-body li {
+      margin-bottom: var(--space-sm);
+    }
+
+    .post-detail-body strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    /* Ads inside post */
+    .post-ads {
+      margin-top: var(--space-xxl);
+      padding-top: var(--space-xl);
+      border-top: 1px solid var(--hairline);
+    }
+
+    .post-ads-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: var(--space-lg);
+      text-align: center;
+    }
+
+    .post-ads-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-lg);
+    }
+
+    /* ── SUPPORT FAB — set display:none to hide, restore to "flex" to show ── */
+    .support-fab {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      z-index: 1000;
+      display: none;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 16px;
+      text-decoration: none;
+    }
+
+    .support-msg-bubble {
+      background-color: var(--canvas);
+      color: var(--ink);
+      border: 2px solid var(--ink);
+      box-shadow: 4px 4px 0px var(--ink);
+      padding: 16px 24px;
+      border-radius: 20px 20px 0 20px;
+      font-size: 15px;
+      font-weight: 600;
+      max-width: 260px;
+      opacity: 0;
+      transform: translateY(10px) scale(0.9);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      pointer-events: none;
+      line-height: 1.5;
+    }
+
+    .support-msg-bubble.show {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 2px;
+      background-color: var(--ink);
+      margin-left: 2px;
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      50% {
+        opacity: 0;
+      }
+    }
+
+    .support-btn {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      border: 3px solid var(--ink);
+      box-shadow: 4px 4px 0px var(--ink);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      overflow: hidden;
+      background: var(--surface-card);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .support-btn img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .support-fab:hover .support-btn {
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0px var(--ink);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .ads-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-col-right {
+        align-items: flex-start;
+      }
+
+      .footer-nav {
+        justify-content: flex-start;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-wrapper {
+        padding-top: 24px;
+      }
+
+      .hero {
+        padding-top: 56px;
+        padding-bottom: 16px;
+      }
+
+      .display-md {
+        font-size: 28px;
+      }
+
+      .container {
+        padding: 0 var(--space-md);
+      }
+
+      .support-fab {
+        bottom: 20px;
+        right: 16px;
+      }
+
+      .support-msg-bubble {
+        font-size: 13px;
+        padding: 12px 16px;
+        max-width: 220px;
+      }
+
+      .top-banner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .top-banner .btn {
+        width: 100%;
+      }
+
+      .post-detail-content {
+        padding: var(--space-xl) var(--space-lg);
+      }
+
+      .blog-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="index.html" class="nav-logo">
+          <img src="./assets/pluginstream.png" alt="PluginStream" class="nav-logo-img">
+          PluginStream
+        </a>
+        <a href="index.html" class="btn btn-secondary ripple" style="height:40px; font-size:13px;">← Back</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- PAGE -->
+  <div class="page-wrapper">
+    <div class="container">
+
+      <!-- SPONSORED BANNER -->
+      <div class="top-banner">
+        <div class="top-banner-copy">
+          <strong>Sponsored Access</strong>
+          <span>This optional offer helps keep the blog and APK hosting free.</span>
+        </div>
+        <a class="btn btn-primary ripple"
+          href="https://www.effectivecpmnetwork.com/q9fcq65yfr?key=08d2509c203cbea44e79039ef1bab143" target="_blank"
+          rel="noopener noreferrer sponsored nofollow">Open offer</a>
+      </div>
+
+      <!-- HERO -->
+      <section class="hero">
+        <img src="./assets/pluginstream.png" alt="PluginStream" class="hero-logo">
+        <div class="hero-badge">PluginStream Blog</div>
+        <h1 class="display-md">Updates & Guides</h1>
+        <p class="body-md hero-sub">Stay updated with the latest features, tutorials, and insights from the PluginStream
+          ecosystem.</p>
+      </section>
+
+      <!-- AD: BANNER TOP -->
+      <section class="ads-section">
+        <div class="ad-card full-width" style="text-align:center;">
+          <div class="ad-slot banner-slot">
+            <script>
+              atOptions = {
+                'key': '6a9374ce5ba7bf38f6bc7d29a48035bd',
+                'format': 'iframe',
+                'height': 50,
+                'width': 320,
+                'params': {}
+              };
+            </script>
+            <script src="https://www.highperformanceformat.com/6a9374ce5ba7bf38f6bc7d29a48035bd/invoke.js"></script>
+          </div>
+        </div>
+      </section>
+
+      <!-- NATIVE AD -->
+      <section class="ads-section">
+        <div class="ad-card full-width">
+          <h3>Recommended for You</h3>
+          <p>Native placement stays inside the content column so it feels less disruptive while you browse posts.</p>
+
+          <div class="native-ad-frame">
+            <div id="container-4a575ee99f3cffbac7552b0593539196"></div>
+          </div>
+
+          <script async="async" data-cfasync="false"
+            src="https://pl29725289.effectivecpmnetwork.com/4a575ee99f3cffbac7552b0593539196/invoke.js"></script>
+        </div>
+      </section>
+
+      <!-- BLOG GRID -->
+      <div class="blog-grid">
+
+        <!-- Post: Games -->
+        <article class="blog-card open-post" data-post-id="games">
+          <div class="blog-card-thumb" style="background: linear-gradient(135deg, #00ff88, #00d4ff);">PluginStream</div>
+          <div class="blog-card-body">
+            <span class="blog-tag">New Feature</span>
+            <h2 class="blog-card-title">1.6k+ Instant Games Added! Fast & No Install</h2>
+            <p class="blog-card-excerpt">We've integrated a massive library of 1600+ high-quality games that you can
+              play instantly within PluginStream without downloading them.</p>
+            <div class="blog-card-footer">
+              <span class="blog-card-date">June 09, 2026</span>
+              <span class="read-more-link">Read More
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
+              </span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Post: Support -->
+        <article class="blog-card open-post" data-post-id="support">
+          <div class="blog-card-thumb" style="background: linear-gradient(135deg, #ffca28, #ff7043);">PluginStream</div>
+          <div class="blog-card-body">
+            <span class="blog-tag">Community</span>
+            <h2 class="blog-card-title">Support Our Developers: New Offers for Maintenance</h2>
+            <p class="blog-card-excerpt">Learn how you can help keep PluginStream fast, ad-free, and always working by
+              participating in our new optional support offers.</p>
+            <div class="blog-card-footer">
+              <span class="blog-card-date">June 08, 2026</span>
+              <span class="read-more-link">Read More
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
+              </span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Post: Intro -->
+        <article class="blog-card open-post" data-post-id="intro">
+          <div class="blog-card-thumb" style="background: linear-gradient(135deg, #b8a4ed, #ff4d8b);">PluginStream</div>
+          <div class="blog-card-body">
+            <span class="blog-tag">Introduction</span>
+            <h2 class="blog-card-title">Introducing PluginStream: The Future of Modular Streaming</h2>
+            <p class="blog-card-excerpt">Discover how PluginStream is revolutionizing content consumption with its
+              open-source, plugin-based architecture.</p>
+            <div class="blog-card-footer">
+              <span class="blog-card-date">June 09, 2026</span>
+              <span class="read-more-link">Read More
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
+              </span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Post: Setup -->
+        <article class="blog-card open-post" data-post-id="setup">
+          <div class="blog-card-thumb" style="background: linear-gradient(135deg, #7000ff, #00d4ff);">PluginStream</div>
+          <div class="blog-card-body">
+            <span class="blog-tag">Tutorial</span>
+            <h2 class="blog-card-title">Step-by-Step Guide: Setting Up Your First Repository</h2>
+            <p class="blog-card-excerpt">A comprehensive guide for beginners to add extensions and start streaming your
+              favorite content in minutes.</p>
+            <div class="blog-card-footer">
+              <span class="blog-card-date">June 07, 2026</span>
+              <span class="read-more-link">Read More
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
+              </span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Post: TV Update -->
+        <article class="blog-card open-post" data-post-id="tv-update">
+          <div class="blog-card-thumb" style="background: linear-gradient(135deg, #a4d4c5, #a7c7e7);">PluginStream</div>
+          <div class="blog-card-body">
+            <span class="blog-tag">Update</span>
+            <h2 class="blog-card-title">TV Version Update: Black Screen Fixes & Performance Boost</h2>
+            <p class="blog-card-excerpt">We've heard your feedback! The latest TV extension update addresses crashes and
+              optimizes remote control response.</p>
+            <div class="blog-card-footer">
+              <span class="blog-card-date">June 05, 2026</span>
+              <span class="read-more-link">Read More
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
+              </span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- AD GRID BOTTOM -->
+      <section class="ads-section" aria-label="Sponsored placements" id="ads-section">
+        <div class="ads-section-label">Sponsored Placements</div>
+        <div class="ads-grid">
+          <article class="ad-card">
+            <h3>Recommended Offers</h3>
+            <p>Native placement stays inside the content column so it feels less disruptive than forcing users away
+              mid-read.</p>
+            <div class="ad-slot">
+              <script>
+                atOptions = {
+                  'key': '6a9374ce5ba7bf38f6bc7d29a48035bd',
+                  'format': 'iframe',
+                  'height': 50,
+                  'width': 320,
+                  'params': {}
+                };
+              </script>
+              <script src="https://www.highperformanceformat.com/6a9374ce5ba7bf38f6bc7d29a48035bd/invoke.js"></script>
+            </div>
+          </article>
+
+          <article class="ad-card">
+            <h3>Compact Banner</h3>
+            <p>This smaller banner keeps monetization visible without blocking the blog posts above.</p>
+            <div class="ad-slot banner-slot">
+              <script>
+                atOptions = {
+                  'key': '6a9374ce5ba7bf38f6bc7d29a48035bd',
+                  'format': 'iframe',
+                  'height': 50,
+                  'width': 320,
+                  'params': {}
+                };
+              </script>
+              <script src="https://www.highperformanceformat.com/6a9374ce5ba7bf38f6bc7d29a48035bd/invoke.js"></script>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- FOOTER NOTE -->
+      <p class="footer-note">Sponsored placements help keep PluginStream downloads and blog free. Popunder and social
+        bar are session-limited and do not block reading.</p>
+
+    </div>
+  </div>
+
+  <!-- POST DETAIL OVERLAY -->
+  <div id="post-overlay" class="post-overlay">
+    <div class="post-detail-content">
+      <div class="close-post" id="close-post">&times;</div>
+      <div id="post-detail-inner"></div>
+
+      <!-- ADS inside post -->
+      <div class="post-ads">
+        <div class="post-ads-label">Sponsored Content</div>
+        <div class="post-ads-inner">
+          <div>
+            <script>
+              atOptions = {
+                'key': '6a9374ce5ba7bf38f6bc7d29a48035bd',
+                'format': 'iframe',
+                'height': 50,
+                'width': 320,
+                'params': {}
+              };
+            </script>
+            <script src="https://www.highperformanceformat.com/6a9374ce5ba7bf38f6bc7d29a48035bd/invoke.js"></script>
+          </div>
+          <div style="width:100%; max-width:100%;">
+
+            <div class="native-ad-frame">
+              <div id="container-4a575ee99f3cffbac7552b0593539196-2"></div>
+            </div>
+
+            <script async="async" data-cfasync="false"
+              src="https://pl29725289.effectivecpmnetwork.com/4a575ee99f3cffbac7552b0593539196/invoke.js"></script>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo">
+            <img src="./assets/pluginstream.png" alt="PluginStream Logo">
+            PluginStream
+          </div>
+          <div class="footer-tagline body-sm">Free Premium Movies &amp; OTT Plugins</div>
+          <div class="caption" style="margin-top:16px; color:var(--muted); max-width:280px; line-height:1.4;">
+            The ultimate free streaming app with ad-free experience, 100+ OTT plugins, and seamless access to Netflix,
+            Prime, HBO, Disney+ and YouTube.
+          </div>
+        </div>
+        <div class="footer-col-right">
+          <div>
+            <div class="title-sm" style="margin-bottom:16px; color:var(--ink); font-size:20px;">Join the community</div>
+            <div class="social-links">
+              <a href="github.html" target="_blank" rel="noopener noreferrer" class="social-icon-link">
+                <img src="./assets/github.svg" alt="GitHub">
+              </a>
+              <a href="telegram.html" target="_blank" rel="noopener noreferrer" class="social-icon-link">
+                <img src="./assets/telegram.svg" alt="Telegram">
+              </a>
+              <a href="contact.html" target="_blank" rel="noopener noreferrer" class="social-icon-link">
+                <img src="./assets/email.svg" alt="Email">
+              </a>
+            </div>
+          </div>
+          <div class="footer-nav" style="margin-top:32px;">
+            <a href="extensions.html" class="footer-link" target="_blank" rel="noopener noreferrer">Extensions</a>
+            <a href="portfolio.html" class="footer-link" target="_blank" rel="noopener noreferrer">Portfolio</a>
+            <a href="privacy.html" class="footer-link">Privacy Policy</a>
+            <a href="terms.html" class="footer-link">Terms &amp; Conditions</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SUPPORT FAB -->
+  <a href="https://omg10.com/4/11143190" target="_blank" rel="noopener noreferrer" class="support-fab" id="support-fab">
+    <div class="support-msg-bubble" id="fab-bubble">
+      <span id="typewriter-text"></span><span class="cursor">|</span>
+    </div>
+    <div class="support-btn">
+      <img src="https://github.com/am-abdulmueed.png" alt="Support">
+    </div>
+  </a>
+
+  <script>
+    // ── Blog post data ──
+    const blogPosts = {
+      'games': {
+        tag: 'New Feature',
+        title: '1.6k+ Instant Games Added! Fast & No Install',
+        content: `
+          <p>Great news for gamers! We have officially integrated a massive library of over 1600+ high-quality games directly into the PluginStream ecosystem.</p>
+          <h3>Why play games on PluginStream?</h3>
+          <ul>
+            <li><strong>No Installation Required:</strong> Play any game instantly without filling up your storage.</li>
+            <li><strong>Blazing Fast:</strong> Optimized for low latency and smooth performance.</li>
+            <li><strong>Huge Variety:</strong> From action and puzzles to sports and arcade classics.</li>
+          </ul>
+          <p>Just open the new "Games" section in your PluginStream app and start playing immediately. Whether you're on a phone or TV, the experience is seamless!</p>
+        `
+      },
+      'support': {
+        tag: 'Community',
+        title: 'Support Our Developers: New Offers for Maintenance',
+        content: `
+          <p>To keep PluginStream running fast, ad-free, and always updated, we've introduced an optional "Offers" section in the app.</p>
+          <h3>How it helps the community:</h3>
+          <ul>
+            <li><strong>Financial Support:</strong> Participation in these offers provides developers with the funds needed for server costs and domain maintenance.</li>
+            <li><strong>Better assets:</strong> Helps us invest in better source code, premium assets, and high-speed infrastructure.</li>
+            <li><strong>Always Working:</strong> Ensures that the app remains stable and functional for everyone.</li>
+          </ul>
+          <p>By participating in these optional offers, you are directly contributing to keeping PluginStream 100% free and ad-free for the entire world. Thank you for your support!</p>
+        `
+      },
+      'intro': {
+        tag: 'Introduction',
+        title: 'Introducing PluginStream: The Future of Modular Streaming',
+        content: `
+          <p>PluginStream is more than just a streaming app; it's a modular container designed for the ultimate content consumption experience.</p>
+          <h3>Key Features:</h3>
+          <ul>
+            <li><strong>Open Source:</strong> Transparent code available on GitHub.</li>
+            <li><strong>Privacy Focused:</strong> No data collection, no tracking.</li>
+            <li><strong>Ad-Free:</strong> Clean interface with zero interruptions.</li>
+          </ul>
+          <p>Join us on this journey to build the most flexible streaming tool ever made.</p>
+        `
+      },
+      'setup': {
+        tag: 'Tutorial',
+        title: 'Step-by-Step Guide: Setting Up Your First Repository',
+        content: `
+          <p>Getting started with PluginStream is easy! Follow these simple steps to add your first plugin repository.</p>
+          <ol>
+            <li>Download and install the APK.</li>
+            <li>Go to the "Settings" or "Plugins" section.</li>
+            <li>Paste the repository URL from our official list.</li>
+            <li>Click "Install" and enjoy your content!</li>
+          </ol>
+          <p>Check out our documentation for a full list of verified repositories.</p>
+        `
+      },
+      'tv-update': {
+        tag: 'Update',
+        title: 'TV Version Update: Black Screen Fixes & Performance Boost',
+        content: `
+          <p>We've released a major update for the Android TV version of PluginStream.</p>
+          <h3>What's New:</h3>
+          <ul>
+            <li><strong>Black Screen Fix:</strong> Resolved the issue where some users experienced crashes on startup.</li>
+            <li><strong>Remote Optimization:</strong> Navigation is now 50% faster with TV remotes.</li>
+            <li><strong>UI Polish:</strong> Better scaling for 4K displays.</li>
+          </ul>
+          <p>Update now via the TV Version download button on our homepage.</p>
+        `
+      }
+    };
+
+    const overlay = document.getElementById('post-overlay');
+    const inner = document.getElementById('post-detail-inner');
+    const closeBtn = document.getElementById('close-post');
+
+    document.querySelectorAll('.open-post').forEach(card => {
+      card.addEventListener('click', () => {
+        const id = card.getAttribute('data-post-id');
+        const post = blogPosts[id];
+        if (post) {
+          inner.innerHTML = `
+            <div class="post-detail-tag">${post.tag}</div>
+            <h1 class="post-detail-title">${post.title}</h1>
+            <div class="post-detail-body">${post.content}</div>
+          `;
+          overlay.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        }
+      });
+    });
+
+    closeBtn.addEventListener('click', closeOverlay);
+    overlay.addEventListener('click', e => { if (e.target === overlay) closeOverlay(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeOverlay(); });
+
+    function closeOverlay() {
+      overlay.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    // ── Navbar scroll ──
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      navbar.classList.toggle('visible', y > 50);
+      const bubble = document.getElementById('fab-bubble');
+      if (y > 50) {
+        bubble.classList.add('show');
+        startTypeWriter();
+      } else {
+        bubble.classList.remove('show');
+      }
+    }, { passive: true });
+
+    // ── Ripple ──
+    function createRipple(event) {
+      const button = event.currentTarget;
+      const circle = document.createElement("span");
+      const diameter = Math.max(button.clientWidth, button.clientHeight);
+      const radius = diameter / 2;
+      let x, y;
+      if (event.touches && event.touches.length > 0) {
+        x = event.touches[0].clientX - button.getBoundingClientRect().left;
+        y = event.touches[0].clientY - button.getBoundingClientRect().top;
+      } else {
+        x = event.clientX - button.getBoundingClientRect().left;
+        y = event.clientY - button.getBoundingClientRect().top;
+      }
+      circle.style.width = circle.style.height = `${diameter}px`;
+      circle.style.left = `${x - radius}px`;
+      circle.style.top = `${y - radius}px`;
+      circle.classList.add("ripple-span");
+      const existing = button.querySelector('.ripple-span');
+      if (existing) existing.remove();
+      button.appendChild(circle);
+      setTimeout(() => circle.remove(), 600);
+    }
+
+    // ── Typewriter FAB ──
+    const typeText = document.getElementById('typewriter-text');
+    const msg = "Hi! If you love PluginStream, consider supporting my work! ☕";
+    let typeIndex = 0, hasTyped = false;
+
+    function typeWriter() {
+      if (typeIndex < msg.length) {
+        typeText.innerHTML += msg.charAt(typeIndex);
+        typeIndex++;
+        setTimeout(typeWriter, 40);
+      } else {
+        setTimeout(() => {
+          const cursor = document.querySelector('.cursor');
+          if (cursor) cursor.style.display = 'none';
+        }, 2000);
+      }
+    }
+
+    function startTypeWriter() {
+      if (!hasTyped) { hasTyped = true; setTimeout(typeWriter, 300); }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.btn.ripple').forEach(btn => {
+        btn.addEventListener('mousedown', createRipple);
+        btn.addEventListener('touchstart', createRipple, { passive: true });
+      });
+    });
+  </script>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-analytics.js";
+    const firebaseConfig = {
+      apiKey: "AIzaSyCuTunuW_XuQ_bcQdqwNElEfKZlHP8WdSc",
+      authDomain: "pluginstream-94ff5.firebaseapp.com",
+      projectId: "pluginstream-94ff5",
+      storageBucket: "pluginstream-94ff5.firebasestorage.app",
+      messagingSenderId: "525209317723",
+      appId: "1:525209317723:web:02102e4da04f0c05bcea7e",
+      measurementId: "G-2HWE46P8EY"
+    };
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+  </script>
+  <!-- Lazy Load Ads -->
+  <script>
+    let adsLoaded = false;
+
+    // Function to load all ads
+    function loadAds() {
+      if (adsLoaded) return;
+      adsLoaded = true;
+
+      // Load push notification ad
+      const pushScript = document.createElement('script');
+      pushScript.src = 'https://5gvci.com/act/files/tag.min.js?z=11143232';
+      pushScript.setAttribute('data-cfasync', 'false');
+      pushScript.async = true;
+      document.body.appendChild(pushScript);
+
+      // Load popunder ad after delay
+      setTimeout(() => {
+        const popunderScript = document.createElement('script');
+        popunderScript.innerHTML = "(function(s){s.dataset.zone='11143227',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))";
+        document.body.appendChild(popunderScript);
+      }, 2000);
+
+      // Load in-page push after delay
+      setTimeout(() => {
+        const inPageScript = document.createElement('script');
+        inPageScript.innerHTML = "(function(s){s.dataset.zone='11143238',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))";
+        document.body.appendChild(inPageScript);
+      }, 3000);
+
+      // Load vignette & app banner after delay
+      setTimeout(() => {
+        const vignetteScript = document.createElement('script');
+        vignetteScript.innerHTML = "(function(s){s.dataset.zone='11143239',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))";
+        document.body.appendChild(vignetteScript);
+      }, 4000);
+
+      // Load ad slots if they exist
+      loadAdSlots();
+    }
+
+    function loadAdSlots() {
+      // Ad slot 1
+      const adSlot1 = document.getElementById('ad-slot-1');
+      if (adSlot1) {
+        const atOptions1 = document.createElement('script');
+        atOptions1.innerHTML = "atOptions = { 'key' : '6a9374ce5ba7bf38f6bc7d29a48035bd', 'format' : 'iframe', 'height' : 50, 'width' : 320, 'params' : {} };";
+        adSlot1.appendChild(atOptions1);
+
+        const invokeScript1 = document.createElement('script');
+        invokeScript1.src = 'https://www.highperformanceformat.com/6a9374ce5ba7bf38f6bc7d29a48035bd/invoke.js';
+        invokeScript1.async = true;
+        adSlot1.appendChild(invokeScript1);
+      }
+
+      // Ad slot 2
+      const adSlot2 = document.getElementById('ad-slot-2');
+      if (adSlot2) {
+        const atOptions2 = document.createElement('script');
+        atOptions2.innerHTML = "atOptions = { 'key' : '6a9374ce5ba7bf38f6bc7d29a48035bd', 'format' : 'iframe', 'height' : 50, 'width' : 320, 'params' : {} };";
+        adSlot2.appendChild(atOptions2);
+
+        const invokeScript2 = document.createElement('script');
+        invokeScript2.src = 'https://www.highperformanceformat.com/6a9374ce5ba7bf38f6bc7d29a48035bd/invoke.js';
+        invokeScript2.async = true;
+        adSlot2.appendChild(invokeScript2);
+      }
+    }
+
+    // Intersection Observer for lazy loading ads when they come into view
+    document.addEventListener('DOMContentLoaded', () => {
+      const adsSection = document.getElementById('ads-section');
+
+      if (adsSection && 'IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              loadAds();
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.1 });
+
+        observer.observe(adsSection);
+      } else {
+        // Fallback for older browsers - load ads after page is fully loaded
+        window.addEventListener('load', loadAds);
+      }
+
+      // Also load ads after a timeout just in case
+      setTimeout(loadAds, 5000);
+    });
+  </script>
+</body>
+
+</html>
