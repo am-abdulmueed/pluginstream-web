@@ -1500,7 +1500,7 @@
         </div>
       </section>
 
-      <!-- PLUGINS GRID -->
+      <!-- ⚠️ PLUGINS GRID — DISABLED
       <div id="plugins-grid" class="plugins-grid">
         <div class="plugin-card skeleton-card">
           <div class="skeleton-line skeleton-title"></div>
@@ -1551,6 +1551,11 @@
           </div>
         </div>
       </div>
+      ⚠️ END DISABLED PLUGINS GRID -->
+
+      <!--
+      <div id="plugins-grid" class="plugins-grid"></div>
+      -->
 
       <!-- AD GRID -->
       <section class="ads-section" style="margin-top: var(--space-xl);" aria-label="Sponsored placements">
@@ -1799,6 +1804,8 @@
         });
       });
 
+      // ⚠️ Render Skeletons — DISABLED
+      /*
       // ── Render Skeletons ──
       function renderSkeletons() {
         const grid = document.getElementById('plugins-grid');
@@ -1814,6 +1821,7 @@
           </div>
         `).join('');
       }
+      */
 
       // ── Fetch and display plugins with lazy load ──
       let pluginsFetched = false;
@@ -1823,6 +1831,13 @@
         const grid = document.getElementById('plugins-grid');
         if (!grid) return;
 
+        // ⚠️ Plugin load karna disable kar diya gaya hai.
+        // plugins.json fetch call + uske saare handlers (then/catch + error UI)
+        // neeche block comment mein hain. Grid ko silently empty kar diya taake
+        // skeleton ya error na dikhe.
+        grid.innerHTML = '';
+
+        /* =====================================================================
         fetch('plugins.json')
           .then(response => {
             if (!response.ok) throw new Error('Failed to load plugin database');
@@ -1932,8 +1947,13 @@
               });
             }
           });
+        ===================================================================== */
       }
 
+      // ⚠️ Plugin load karne waala IntersectionObserver + fallback bhi disable.
+      // fetchPlugins() ab sirf empty return deta hai, par usko call hi mat karo taake
+      // koi bhi side effect na ho.
+      /*
       // ── Lazy Loading with Intersection Observer ──
       const gridElem = document.getElementById('plugins-grid');
       if (gridElem && 'IntersectionObserver' in window) {
@@ -1949,6 +1969,7 @@
       } else {
         fetchPlugins();
       }
+      */
     });
   </script>
 

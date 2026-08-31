@@ -169,6 +169,371 @@
                 margin-top: 100px;
             }
         }
+
+        /* ── COPY TOAST ── */
+        .copy-toast {
+            position: fixed;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background-color: #0a1a1a;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            opacity: 0;
+            pointer-events: none;
+            z-index: 9999;
+            transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            white-space: nowrap;
+        }
+
+        .copy-toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* ── GUIDE SECTION (extensions.html style) ── */
+        .guide-section {
+            margin-top: 60px;
+            margin-bottom: 40px;
+        }
+
+        .guide-tabs {
+            display: flex;
+            gap: 8px;
+            background-color: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 6px;
+            border-radius: 999px;
+            width: fit-content;
+            margin: 0 auto 28px;
+        }
+
+        .guide-tab {
+            padding: 8px 20px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            color: #aaa;
+            font-family: 'Inter', system-ui, sans-serif;
+            transition: all 0.2s ease;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .guide-tab:hover {
+            color: #fff;
+        }
+
+        .guide-tab.active {
+            background-color: #0a1a1a;
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .guide-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 32px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .guide-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #b8a4ed, #ff4d8b, #e8b94a, #a4d4c5);
+            opacity: 0.9;
+        }
+
+        .guide-panel {
+            display: none;
+        }
+
+        .guide-panel.active {
+            display: block;
+            animation: fadeInUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .guide-header {
+            margin-bottom: 24px;
+        }
+
+        .guide-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .guide-subtitle {
+            font-size: 14px;
+            color: #aaa;
+            line-height: 1.5;
+        }
+
+        .guide-website-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #ff4d8b;
+            text-decoration: none;
+            transition: gap 0.2s ease;
+        }
+
+        .guide-website-link:hover {
+            gap: 10px;
+        }
+
+        .guide-steps {
+            list-style: none;
+            counter-reset: step-counter;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding: 0;
+            margin: 0;
+        }
+
+        .guide-step {
+            counter-increment: step-counter;
+            display: flex;
+            gap: 16px;
+            padding: 16px;
+            background-color: rgba(255, 255, 255, 0.04);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+
+        .guide-step:hover {
+            transform: translateX(4px);
+            background-color: rgba(184, 164, 237, 0.1);
+        }
+
+        .guide-step-number {
+            flex-shrink: 0;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #b8a4ed, #ff4d8b);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(184, 164, 237, 0.35);
+        }
+
+        .guide-step-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .guide-step-title {
+            font-weight: 600;
+            font-size: 15px;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+
+        .guide-step-desc {
+            font-size: 13px;
+            color: #ccc;
+            line-height: 1.55;
+        }
+
+        .guide-step-desc strong {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .guide-inline-code {
+            display: inline-block;
+            padding: 2px 10px;
+            background-color: #0a1a1a;
+            color: #fff;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            margin: 0 2px;
+        }
+
+        .guide-note {
+            display: flex;
+            gap: 12px;
+            margin-top: 12px;
+            padding: 12px 16px;
+            background-color: rgba(167, 199, 231, 0.12);
+            border-radius: 12px;
+            border-left: 3px solid #4da6ff;
+            font-size: 12px;
+            color: #ddd;
+            line-height: 1.5;
+        }
+
+        .guide-note-icon {
+            flex-shrink: 0;
+            font-size: 14px;
+            margin-top: 1px;
+        }
+
+        .guide-tip {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+            padding: 16px;
+            background: linear-gradient(135deg, rgba(164, 212, 197, 0.18), rgba(184, 164, 237, 0.14));
+            border-radius: 16px;
+            border: 1px solid rgba(164, 212, 197, 0.25);
+            font-size: 13px;
+            color: #ddd;
+            line-height: 1.55;
+        }
+
+        .guide-tip strong {
+            color: #fff;
+        }
+
+        .guide-tip-icon {
+            flex-shrink: 0;
+            font-size: 18px;
+        }
+
+        .guide-shortcode-row {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 12px;
+            padding: 10px 14px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            flex-wrap: wrap;
+        }
+
+        .guide-shortcode-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        .guide-shortcode-code {
+            display: inline-block;
+            padding: 5px 12px;
+            background-color: #0a1a1a;
+            color: #fff;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.4px;
+        }
+
+        .guide-copy-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background-color: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: background-color 0.2s ease, transform 0.15s ease, border-color 0.2s ease;
+        }
+
+        .guide-copy-btn:hover {
+            background-color: #b8a4ed;
+            border-color: #b8a4ed;
+            color: #fff;
+        }
+
+        .guide-copy-btn:active {
+            transform: scale(0.92);
+        }
+
+        .guide-copy-btn svg {
+            width: 15px;
+            height: 15px;
+            pointer-events: none;
+        }
+
+        .guide-copy-btn .icon-check {
+            display: none;
+        }
+
+        .guide-copy-btn.copied .icon-copy {
+            display: none;
+        }
+
+        .guide-copy-btn.copied .icon-check {
+            display: block;
+        }
+
+        .guide-copy-btn.copied {
+            background-color: #a4d4c5;
+            border-color: #a4d4c5;
+            color: #0a1a1a;
+        }
+
+        @media (max-width: 640px) {
+            .guide-section {
+                margin-top: 40px;
+            }
+
+            .guide-card {
+                padding: 20px;
+            }
+
+            .guide-title {
+                font-size: 18px;
+            }
+
+            .guide-step {
+                padding: 14px;
+                gap: 12px;
+            }
+
+            .guide-step-number {
+                width: 32px;
+                height: 32px;
+                font-size: 13px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -205,12 +570,186 @@
 
             <div class="plugins-header">
                 <h1 class="plugins-title">Plugins Repository</h1>
-                <p class="plugins-subtitle">One-tap install for all your favorite streaming providers</p>
+
             </div>
 
             <div id="plugins-grid" class="plugins-grid">
                 <div class="loading-text">Loading plugins...</div>
             </div>
+
+            <!-- SETUP GUIDE -->
+            <section class="guide-section">
+                <div class="guide-tabs" role="tablist">
+                    <button class="guide-tab active" role="tab" data-guide-tab="urdu" aria-selected="true">🇵🇰 Roman Urdu</button>
+                    <button class="guide-tab" role="tab" data-guide-tab="english" aria-selected="false">🇬🇧 English</button>
+                </div>
+
+                <div class="guide-card">
+                    <!-- Roman Urdu Panel -->
+                    <div class="guide-panel active" data-guide-panel="urdu">
+                        <div class="guide-header">
+                            <h2 class="guide-title">🔌 PluginStream — Extension &amp; Repository Setup Guide</h2>
+                            <p class="guide-subtitle">Niche diye gaye simple steps ko follow karke PluginStream mein tamam repositories aur plugins install kar saktay hain.</p>
+                            <a class="guide-website-link" href="https://pluginstream.pages.dev/" target="_blank" rel="noopener noreferrer">
+                                🌐 pluginstream.pages.dev
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;">
+                                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                                    <polyline points="7 7 17 7 17 17"></polyline>
+                                </svg>
+                            </a>
+                        </div>
+
+                        <ol class="guide-steps">
+                            <li class="guide-step">
+                                <div class="guide-step-number">1</div>
+                                <div class="guide-step-content">
+                                    <div class="guide-step-title">Extensions Panel Kholain</div>
+                                    <div class="guide-step-desc">App ki <strong>Settings</strong> (⚙️) mein jayen. Scroll karke <strong>Extensions</strong> tab par tap karain.</div>
+                                </div>
+                            </li>
+                            <li class="guide-step">
+                                <div class="guide-step-number">2</div>
+                                <div class="guide-step-content">
+                                    <div class="guide-step-title">Repository Add Window Kholain</div>
+                                    <div class="guide-step-desc">Bottom-right corner par majood <strong>+ Add Repository</strong> button par click karain.</div>
+                                </div>
+                            </li>
+                            <li class="guide-step">
+                                <div class="guide-step-number">3</div>
+                                <div class="guide-step-content">
+                                    <div class="guide-step-title">Shortcode Enter Karain</div>
+                                    <div class="guide-step-desc"><strong>"Repository URL or Shortcode"</strong> field mein type karain:</div>
+                                    <div class="guide-shortcode-row">
+                                        <span class="guide-shortcode-label">Shortcode</span>
+                                        <span class="guide-shortcode-code">pluginstream</span>
+                                        <button type="button" class="guide-copy-btn" data-copy-value="pluginstream" title="Copy shortcode" aria-label="Copy shortcode">
+                                            <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                            </svg>
+                                            <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <polyline points="20 6 9 17 4 12"></polyline>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <div class="guide-note">
+                                        <span class="guide-note-icon">ℹ️</span>
+                                        <span>Note: Aap Small ya Capital kisi bhi letters mein likh saktay hain.</span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="guide-step">
+                                <div class="guide-step-number">4</div>
+                                <div class="guide-step-content">
+                                    <div class="guide-step-title">Repository Add Karain</div>
+                                    <div class="guide-step-desc"><strong>"Add repository"</strong> button dabaen. Popup confirmation aane par dobara <strong>"Add repository"</strong> par click karain.</div>
+                                </div>
+                            </li>
+                            <li class="guide-step">
+                                <div class="guide-step-number">5</div>
+                                <div class="guide-step-content">
+                                    <div class="guide-step-title">Repositories Load Hone Ka Wait Karain</div>
+                                    <div class="guide-step-desc">Screen par <strong>"20 repositories added"</strong> ka toast message show hoga aur tamaam repos list mein aa jayengi.</div>
+                                </div>
+                            </li>
+                            <li class="guide-step">
+                                <div class="guide-step-number">6</div>
+                                <div class="guide-step-content">
+                                    <div class="guide-step-title">Plugins Download Karain</div>
+                                    <div class="guide-step-desc">Kisi bhi <strong>Repository Card</strong> par tap karke uske plugins open karain. Apne pasandida plugin ke samne <strong>Download (⬇️)</strong> icon par click karain.</div>
+                                </div>
+                            </li>
+                        </ol>
+
+                        <div class="guide-tip">
+                            <span class="guide-tip-icon">💡</span>
+                            <div><strong>Tip:</strong> Success installation ke baad Download icon <strong>Checkmark (✅)</strong> mein badal jayega. 🌐 <strong>Website:</strong> More details aur latest updates ke liye <a href="https://pluginstream.pages.dev/" target="_blank" rel="noopener noreferrer" style="color:#ff4d8b;font-weight:600;text-decoration:underline;">pluginstream.pages.dev</a> visit karain.</div>
+                        </div>
+                    </div>
+
+                    <!-- English Panel -->
+                    <div class="guide-panel" data-guide-panel="english">
+                        <div class="guide-header">
+                            <h2 class="guide-title">🔌 PluginStream — Extension &amp; Repository Setup Guide</h2>
+                            <p class="guide-subtitle">Follow these quick steps to set up all repositories and download extensions in PluginStream.</p>
+                            <a class="guide-website-link" href="https://pluginstream.pages.dev/" target="_blank" rel="noopener noreferrer">
+                                🌐 pluginstream.pages.dev
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;">
+                                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                                    <polyline points="7 7 17 7 17 17"></polyline>
+                                </svg>
+                            </a>
+                        </div>
+
+                        <ol class="guide-steps">
+                            <li class="guide-step">
+                                <div class="guide-step-number">1</div>
+                                <div class="guide-step-content">
+                                    <div class="guide-step-title">Open Extensions Panel</div>
+                                    <div class="guide-step-desc">Go to app <strong>Settings</strong> (⚙️). Scroll down and select the <strong>Extensions</strong> tab.</div>
+                                </div>
+                            </li>
+                            <li class="guide-step">
+                                <div class="guide-step-number">2</div>
+                                <div class="guide-step-content">
+                                    <div class="guide-step-title">Open Repository Menu</div>
+                                    <div class="guide-step-desc">Tap the <strong>+ Add Repository</strong> button at the bottom-right corner.</div>
+                                </div>
+                            </li>
+                            <li class="guide-step">
+                                <div class="guide-step-number">3</div>
+                                <div class="guide-step-content">
+                                    <div class="guide-step-title">Enter Shortcode</div>
+                                    <div class="guide-step-desc">In the <strong>"Repository URL or Shortcode"</strong> input field, enter:</div>
+                                    <div class="guide-shortcode-row">
+                                        <span class="guide-shortcode-label">Shortcode</span>
+                                        <span class="guide-shortcode-code">pluginstream</span>
+                                        <button type="button" class="guide-copy-btn" data-copy-value="pluginstream" title="Copy shortcode" aria-label="Copy shortcode">
+                                            <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                            </svg>
+                                            <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <polyline points="20 6 9 17 4 12"></polyline>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <div class="guide-note">
+                                        <span class="guide-note-icon">ℹ️</span>
+                                        <span>Note: Case-insensitive (works in uppercase or lowercase).</span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="guide-step">
+                                <div class="guide-step-number">4</div>
+                                <div class="guide-step-content">
+                                    <div class="guide-step-title">Confirm Repository</div>
+                                    <div class="guide-step-desc">Tap <strong>"Add repository"</strong>. Confirm by tapping <strong>"Add repository"</strong> again on the popup prompt.</div>
+                                </div>
+                            </li>
+                            <li class="guide-step">
+                                <div class="guide-step-number">5</div>
+                                <div class="guide-step-content">
+                                    <div class="guide-step-title">Wait for Auto-Index</div>
+                                    <div class="guide-step-desc">A toast notification <strong>"20 repositories added"</strong> will appear once loading completes.</div>
+                                </div>
+                            </li>
+                            <li class="guide-step">
+                                <div class="guide-step-number">6</div>
+                                <div class="guide-step-content">
+                                    <div class="guide-step-title">Download Plugins</div>
+                                    <div class="guide-step-desc">Tap any <strong>Repository Card</strong> to expand its available plugins. Click the <strong>Download (⬇️)</strong> button next to any plugin to install it.</div>
+                                </div>
+                            </li>
+                        </ol>
+
+                        <div class="guide-tip">
+                            <span class="guide-tip-icon">💡</span>
+                            <div><strong>Tip:</strong> Once installed successfully, the download icon will change to a <strong>Checkmark (✅)</strong>. 🌐 <strong>Website:</strong> Visit <a href="https://pluginstream.pages.dev/" target="_blank" rel="noopener noreferrer" style="color:#ff4d8b;font-weight:600;text-decoration:underline;">pluginstream.pages.dev</a> for more information and updates.</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </main>
 
         <footer class="footer">
@@ -222,6 +761,7 @@
                 </div>
             </div>
         </footer>
+        <div class="copy-toast" id="copy-toast">Copied!</div>
     </div>
 
     <script>
@@ -233,6 +773,74 @@
         })();
 
         document.addEventListener('DOMContentLoaded', function() {
+            // ⚠️ Plugin load karna disable kar diya gaya hai.
+            // plugins.json fetch + error UI neeche block comment mein hain.
+            // Grid ko silently empty kar diya taake koi "Error loading" ya
+            // loading text na dikhe.
+            var grid = document.getElementById('plugins-grid');
+            if (grid) {
+                grid.innerHTML = '';
+            }
+
+            // ── Guide Tab Switcher ──
+            document.querySelectorAll('.guide-tab').forEach(function(tab) {
+                tab.addEventListener('click', function() {
+                    var targetTab = tab.getAttribute('data-guide-tab');
+                    document.querySelectorAll('.guide-tab').forEach(function(t) {
+                        t.classList.remove('active');
+                        t.setAttribute('aria-selected', 'false');
+                    });
+                    document.querySelectorAll('.guide-panel').forEach(function(p) {
+                        p.classList.remove('active');
+                    });
+                    tab.classList.add('active');
+                    tab.setAttribute('aria-selected', 'true');
+                    var targetPanel = document.querySelector('.guide-panel[data-guide-panel="' + targetTab + '"]');
+                    if (targetPanel) targetPanel.classList.add('active');
+                });
+            });
+
+            // ── Guide Shortcode Copy Buttons ──
+            var guideToast = document.getElementById('copy-toast');
+            document.querySelectorAll('.guide-copy-btn').forEach(function(btn) {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    var value = btn.getAttribute('data-copy-value');
+                    try {
+                        if (navigator.clipboard && navigator.clipboard.writeText) {
+                            navigator.clipboard.writeText(value);
+                        } else {
+                            var textarea = document.createElement('textarea');
+                            textarea.value = value;
+                            textarea.style.position = 'fixed';
+                            textarea.style.opacity = '0';
+                            document.body.appendChild(textarea);
+                            textarea.select();
+                            document.execCommand('copy');
+                            document.body.removeChild(textarea);
+                        }
+                    } catch (err) {
+                        var textarea = document.createElement('textarea');
+                        textarea.value = value;
+                        textarea.style.position = 'fixed';
+                        textarea.style.opacity = '0';
+                        document.body.appendChild(textarea);
+                        textarea.select();
+                        document.execCommand('copy');
+                        document.body.removeChild(textarea);
+                    }
+                    btn.classList.add('copied');
+                    if (guideToast) {
+                        guideToast.textContent = 'Shortcode copied!';
+                        guideToast.classList.add('show');
+                        clearTimeout(guideToast._hideTimer);
+                        guideToast._hideTimer = setTimeout(function() { guideToast.classList.remove('show'); }, 1800);
+                    }
+                    setTimeout(function() { btn.classList.remove('copied'); }, 1800);
+                });
+            });
+
+            /* =================================================================
             // Fetch and display plugins
             fetch('plugins.json')
                 .then(response => response.json())
@@ -267,6 +875,7 @@
                     console.error('Error loading plugins:', error);
                     document.getElementById('plugins-grid').innerHTML = '<div class="loading-text">Error loading plugins. Please try again later.</div>';
                 });
+            ===================================================================== */
         });
     </script>
 </body>
